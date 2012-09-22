@@ -4,5 +4,3 @@
 
 Main.c
 
-Pohyby.c
-

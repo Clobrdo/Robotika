@@ -35,8 +35,7 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../Main.c \
-../Pohyby.c
+../Main.c
 
 
 PREPROCESSING_SRCS += 
@@ -46,23 +45,19 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-Main.o \
-Pohyby.o
+Main.o
 
 
 OBJS_AS_ARGS +=  \
-Main.o \
-Pohyby.o
+Main.o
 
 
 C_DEPS +=  \
-Main.d \
-Pohyby.d
+Main.d
 
 
 C_DEPS_AS_ARGS +=  \
-Main.d \
-Pohyby.d
+Main.d
 
 
 OUTPUT_FILE_PATH +=Robot_vychozi_CM5.elf
@@ -74,8 +69,6 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
-
-
 
 
 
