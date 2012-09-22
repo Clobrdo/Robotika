@@ -1,0 +1,620 @@
+Archive member included because of file (symbol)
+
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_divmodsi4.o)
+                              Clovec_bioloid.o (__divmodsi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o (exit)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                              Clovec_bioloid.o (__do_clear_bss)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_ctors.o)
+                              Clovec_bioloid.o (__do_global_ctors)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_divmodsi4.o) (__udivmodsi4)
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_tablejump.o)
+                              c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_ctors.o) (__tablejump__)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+LOAD Clovec_bioloid.o
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libc.a
+LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x96d2
+ *(.vectors)
+ .vectors       0x00000000       0x8c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x0000008c                . = ALIGN (0x2)
+                0x0000008c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000008c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000008c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000008c                __ctors_start = .
+ *(.ctors)
+ .ctors         0x0000008c        0x2 Clovec_bioloid.o
+                0x0000008e                __ctors_end = .
+                0x0000008e                __dtors_start = .
+ *(.dtors)
+                0x0000008e                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000008e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x0000008e                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000008e        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x0000009a       0x1a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x0000009a                __do_copy_data
+ .init4         0x000000b4       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                0x000000b4                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ .init6         0x000000c4       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_ctors.o)
+                0x000000c4                __do_global_ctors
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000da        0x8 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ *(.init9)
+ *(.text)
+ .text          0x000000e2        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+                0x000000e2                __vector_22
+                0x000000e2                __vector_28
+                0x000000e2                __vector_1
+                0x000000e2                __vector_32
+                0x000000e2                __vector_34
+                0x000000e2                __vector_24
+                0x000000e2                __vector_12
+                0x000000e2                __bad_interrupt
+                0x000000e2                __vector_6
+                0x000000e2                __vector_3
+                0x000000e2                __vector_23
+                0x000000e2                __vector_25
+                0x000000e2                __vector_11
+                0x000000e2                __vector_13
+                0x000000e2                __vector_17
+                0x000000e2                __vector_7
+                0x000000e2                __vector_27
+                0x000000e2                __vector_5
+                0x000000e2                __vector_33
+                0x000000e2                __vector_4
+                0x000000e2                __vector_9
+                0x000000e2                __vector_2
+                0x000000e2                __vector_21
+                0x000000e2                __vector_15
+                0x000000e2                __vector_29
+                0x000000e2                __vector_8
+                0x000000e2                __vector_26
+                0x000000e2                __vector_14
+                0x000000e2                __vector_10
+                0x000000e2                __vector_20
+ .text          0x000000e6     0x9562 Clovec_bioloid.o
+                0x00003b94                vyloz_na_pozici_chlivek1()
+                0x00000e86                kalkulace_tahu_clovek()
+                0x00001b88                pozice_512()
+                0x0000429e                vyloz_na_pozici2()
+                0x00001ad6                motor_t::position(int const&)
+                0x000050f8                naber_na_pozici12()
+                0x00001860                dynamixel_t::com(unsigned char, unsigned char, unsigned char*, unsigned int, unsigned char, unsigned long, unsigned int)
+                0x0000118a                cti_tlacitka(unsigned char*)
+                0x000046ae                vyloz_na_pozici14()
+                0x0000477e                vyloz_na_pozici10()
+                0x000017c6                queue<unsigned char, 96u>::push(unsigned char)
+                0x0000124c                zobrazeni()
+                0x000043a2                vyloz_na_pozici29()
+                0x00004c7e                naber_na_pozici1()
+                0x000004a8                prepocet_klavesnice()
+                0x00000cfc                definice()
+                0x000046e2                vyloz_na_pozici13()
+                0x00003f04                vyloz()
+                0x000047e6                vyloz_na_pozici8()
+                0x00004c4a                naber_na_pozici2()
+                0x000047b2                vyloz_na_pozici9()
+                0x0000046c                led_t::program(unsigned char)
+                0x0000139a                USART1_t::sendChar(char)
+                0x000051c8                naber_na_pozici8()
+                0x000051fc                vyloz_nezasahnute_pozice()
+                0x0000450e                vyloz_na_pozici22()
+                0x00000108                __vector_31
+                0x00001b12                rotace()
+                0x00005532                vyloz_na_pozici6()
+                0x00003696                chlivek_clovek_pozice39()
+                0x00004e1e                naber_na_pozici25()
+                0x000000e6                abs(long)
+                0x00005028                naber_na_pozici16()
+                0x00004576                vyloz_na_pozici20()
+                0x0000467a                vyloz_na_pozici15()
+                0x00001722                __vector_30
+                0x0000505c                naber_na_pozici15()
+                0x00004646                vyloz_na_pozici16()
+                0x00005a08                naber_na_pozici5()
+                0x00005194                naber_na_pozici9()
+                0x0000906a                nastaveni_pozice_volno()
+                0x00004472                vyloz_na_pozici25()
+                0x0000163e                hra2()
+                0x000043d6                vyloz_na_pozici28()
+                0x0000024a                wait(unsigned long const&)
+                0x00005090                naber_na_pozici14()
+                0x00005602                naber_nezasahnute_pozice()
+                0x000013c6                USART1_t::sendNumber(long, unsigned char)
+                0x00004d1a                naber_na_pozici30()
+                0x00001a52                dynamixel_t::writeWord(unsigned char, unsigned char, unsigned int)
+                0x00001552                kostka()
+                0x00000362                __vector_19
+                0x00004ff4                naber_na_pozici17()
+                0x00004e86                naber_na_pozici23()
+                0x00003aa0                zakladni_pozice()
+                0x000002e6                dynamixel_t::peek(unsigned char&)
+                0x00004d4e                naber_na_pozici29()
+                0x00000430                led_t::rxd(unsigned char)
+                0x00004542                vyloz_na_pozici21()
+                0x000054fe                vyloz_na_pozici7()
+                0x0000436e                vyloz_na_pozici30()
+                0x00004d82                naber_na_pozici28()
+                0x00004e52                naber_na_pozici24()
+                0x00004eba                naber_na_pozici22()
+                0x00004dea                naber_na_pozici26()
+                0x00005d26                kalkulace_tahu_robot()
+                0x0000443e                vyloz_na_pozici26()
+                0x000059d4                naber_na_pozici6()
+                0x00005566                vyloz_na_pozici5()
+                0x000050c4                naber_na_pozici13()
+                0x000042d2                vyloz_na_pozici1()
+                0x000044a6                vyloz_na_pozici24()
+                0x00005160                naber_na_pozici10()
+                0x00004db6                naber_na_pozici27()
+                0x00005aa4                zjisteni_pozice()
+                0x00005a70                naber_na_pozici3()
+                0x0000949a                main
+                0x00009224                motor_t::speed(int const&)
+                0x00000412                led_t::txd(unsigned char)
+                0x00004fc0                naber_na_pozici18()
+                0x00008fba                sila()
+                0x00004716                vyloz_na_pozici12()
+                0x00004306                vyloz_na_pozici32()
+                0x000012fe                zobrazeni0()
+                0x0000474a                vyloz_na_pozici11()
+                0x0000433a                vyloz_na_pozici31()
+                0x000055ce                vyloz_na_pozici3()
+                0x000059a0                naber_na_pozici7()
+                0x0000183c                dynamixel_t::sendChar(unsigned char)
+                0x00008e6a                hra()
+                0x00009260                rychlost()
+                0x0000048a                led_t::play(unsigned char)
+                0x00004cb2                naber_na_pozici32()
+                0x000045aa                vyloz_na_pozici19()
+                0x00003b8a                chlivek_start_robot()
+                0x0000440a                vyloz_na_pozici27()
+                0x0000933c                run()
+                0x00005a3c                naber_na_pozici4()
+                0x0000512c                naber_na_pozici11()
+                0x00002778                chlivek_robot_pozice33()
+                0x000045de                vyloz_na_pozici18()
+                0x00004612                vyloz_na_pozici17()
+                0x0000044e                led_t::manage(unsigned char)
+                0x0000559a                vyloz_na_pozici4()
+                0x00004f8c                naber_na_pozici19()
+                0x00001c64                chlivek_robot_pozice34()
+                0x00004eee                vyhod_preddefinovano()
+                0x0000481a                naber()
+                0x00004f58                naber_na_pozici20()
+                0x0000328c                chlivek_clovek_pozice40()
+                0x000001fe                __vector_16
+                0x000095ba                __vector_18
+                0x00001324                queue<char, 96u>::push(char)
+                0x00008f7e                motor_t::torqueLimit(int const&)
+                0x000044da                vyloz_na_pozici23()
+                0x00001524                USART1_t::operator<<(char const*)
+                0x000001c2                syncWait(unsigned long)
+                0x00004ce6                naber_na_pozici31()
+                0x00004f24                naber_na_pozici21()
+ .text          0x00009648        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_divmodsi4.o)
+ .text          0x00009648        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .text          0x00009648        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+ .text          0x00009648        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_ctors.o)
+ .text          0x00009648        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+ .text          0x00009648        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_tablejump.o)
+                0x00009648                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x00009648       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_divmodsi4.o)
+                0x00009648                __divmodsi4
+ .text.libgcc   0x0000967e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x0000967e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000967e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_ctors.o)
+ .text.libgcc   0x0000967e       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+                0x0000967e                __udivmodsi4
+ .text.libgcc   0x000096c2        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_tablejump.o)
+                0x000096c6                __tablejump__
+                0x000096c2                __tablejump2__
+                0x000096ce                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000096ce        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+                0x000096ce                exit
+                0x000096ce                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000096ce        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ *(.fini0)
+                0x000096d2                _etext = .
+
+.data           0x00800100       0x7c load address 0x000096d2
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ .data          0x00800100       0x7b Clovec_bioloid.o
+ .data          0x0080017b        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_divmodsi4.o)
+ .data          0x0080017b        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .data          0x0080017b        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+ .data          0x0080017b        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_ctors.o)
+ .data          0x0080017b        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+ .data          0x0080017b        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_tablejump.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x0080017c                . = ALIGN (0x2)
+ *fill*         0x0080017b        0x1 00
+                0x0080017c                _edata = .
+                0x0080017c                PROVIDE (__data_end, .)
+
+.bss            0x0080017c      0x34f
+                0x0080017c                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0080017c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
+ .bss           0x0080017c      0x34f Clovec_bioloid.o
+                0x0080041f                TL1
+                0x0080044f                TL25
+                0x0080040d                D
+                0x00800411                I2
+                0x0080042f                TL9
+                0x00800495                TL19_1
+                0x0080049b                TL22_1
+                0x008004c5                tlacitka
+                0x00800449                TL22
+                0x00800419                F2_0
+                0x0080045d                TL32
+                0x00800487                TL12_1
+                0x00800485                TL11_1
+                0x00800475                TL3_1
+                0x00800406                eeprom
+                0x00800457                TL29
+                0x00800423                TL3
+                0x008004bf                TL40_1
+                0x00800439                TL14
+                0x0080047f                TL8_1
+                0x0080042d                TL8
+                0x00800435                TL12
+                0x00800433                TL11
+                0x008004a1                TL25_1
+                0x00800407                A
+                0x00800467                TL37
+                0x0080048f                TL16_1
+                0x0080046f                TL0_1
+                0x0080043f                TL17
+                0x0080049f                TL24_1
+                0x00800445                TL20
+                0x008004a7                TL28_1
+                0x00800463                TL35
+                0x008004b3                TL34_1
+                0x0080049d                TL23_1
+                0x0080042b                TL7
+                0x00800459                TL30
+                0x008004b7                TL36_1
+                0x00800453                TL27
+                0x0080047b                TL6_1
+                0x0080040f                I1
+                0x008004b9                TL37_1
+                0x00800413                K1
+                0x008004b1                TL33_1
+                0x00800483                TL10_1
+                0x0080044d                TL24
+                0x00800409                B
+                0x00800489                TL13_1
+                0x008004a5                TL27_1
+                0x0080041d                F2_1
+                0x00800429                TL6
+                0x00800405                led
+                0x008004af                TL32_1
+                0x00800427                TL5
+                0x0080040b                C
+                0x0080045b                TL31
+                0x008004c1                Cislo
+                0x0080043b                TL15
+                0x00800437                TL13
+                0x0080046b                TL39
+                0x00800469                TL38
+                0x00800499                TL21_1
+                0x008004b5                TL35_1
+                0x00800443                TL19
+                0x00800461                TL34
+                0x0080047d                TL7_1
+                0x0080041b                F1_1
+                0x008004a3                TL26_1
+                0x00800404                buttons
+                0x00800471                TL1_1
+                0x00800479                TL5_1
+                0x00800493                TL18_1
+                0x008004ab                TL30_1
+                0x00800477                TL4_1
+                0x0080044b                TL23
+                0x00800451                TL26
+                0x00800415                K2
+                0x00800481                TL9_1
+                0x00800497                TL20_1
+                0x00800455                TL28
+                0x0080039e                sensor
+                0x00800338                motor
+                0x0080017c                pc
+                0x008004bd                TL39_1
+                0x008004a9                TL29_1
+                0x00800431                TL10
+                0x0080026a                g_stopwatch_tickCounter
+                0x008004c3                Vyhod
+                0x00800417                F1_0
+                0x0080046d                TL40
+                0x0080026e                bus
+                0x008004bb                TL38_1
+                0x0080043d                TL16
+                0x00800447                TL21
+                0x00800491                TL17_1
+                0x00800465                TL36
+                0x0080048b                TL14_1
+                0x00800441                TL18
+                0x00800425                TL4
+                0x0080045f                TL33
+                0x00800473                TL2_1
+                0x008004ad                TL31_1
+                0x00800421                TL2
+                0x0080048d                TL15_1
+ .bss           0x008004cb        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_divmodsi4.o)
+ .bss           0x008004cb        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .bss           0x008004cb        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x008004cb        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_ctors.o)
+ .bss           0x008004cb        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+ .bss           0x008004cb        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_tablejump.o)
+ *(.bss*)
+ *(COMMON)
+                0x008004cb                PROVIDE (__bss_end, .)
+                0x000096d2                __data_load_start = LOADADDR (.data)
+                0x0000974e                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008004cb        0x0
+                0x008004cb                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008004cb                PROVIDE (__noinit_end, .)
+                0x008004cb                _end = .
+                0x008004cb                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000       0x20
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 Clovec_bioloid.o
+
+.debug_pubnames
+                0x00000000      0xd8b
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000      0xd8b Clovec_bioloid.o
+
+.debug_info     0x00000000     0x7e45
+ *(.debug_info)
+ .debug_info    0x00000000     0x7e45 Clovec_bioloid.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0x4f8
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x4f8 Clovec_bioloid.o
+
+.debug_line     0x00000000     0x7a93
+ *(.debug_line)
+ .debug_line    0x00000000     0x7a93 Clovec_bioloid.o
+
+.debug_frame    0x00000000      0x790
+ *(.debug_frame)
+ .debug_frame   0x00000000      0x790 Clovec_bioloid.o
+
+.debug_str      0x00000000     0x2a8c
+ *(.debug_str)
+ .debug_str     0x00000000     0x2a8c Clovec_bioloid.o
+                               0x2b41 (size before relaxing)
+
+.debug_loc      0x00000000      0x905
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x905 Clovec_bioloid.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(Clovec_bioloid.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000      0x180
+ .debug_ranges  0x00000000      0x180 Clovec_bioloid.o
