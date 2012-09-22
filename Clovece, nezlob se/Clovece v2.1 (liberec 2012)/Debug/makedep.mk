@@ -2,5 +2,7 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-Robot_vychozi_CM5.c
+Main.c
+
+Pohyby.c
 
