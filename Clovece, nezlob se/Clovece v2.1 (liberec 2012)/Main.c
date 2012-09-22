@@ -23,7 +23,7 @@ void run()
 	for (;;)
 	{
 		motor[1].position(123);
-		zakladni_pozice;
+		zakladni_pozice();
 		//TODO: Program
 	}
 }
