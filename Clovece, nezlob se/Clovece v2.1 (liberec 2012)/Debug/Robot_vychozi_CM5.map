@@ -1,5 +1,7 @@
 Archive member included because of file (symbol)
 
+o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
+                              Main.o (__divmodsi4)
 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
                               o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/crtm128.o (exit)
 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
@@ -8,6 +10,8 @@ o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.
                               Main.o (__do_clear_bss)
 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
                               Main.o (__do_global_ctors)
+o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
+                              o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o) (__udivmodsi4)
 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
                               o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o) (__tablejump_elpm__)
 
@@ -124,7 +128,7 @@ LOAD o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xa1c
+.text           0x00000000      0xd22
  *(.vectors)
  .vectors       0x00000000       0x8c o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/crtm128.o
                 0x00000000                __vector_default
@@ -213,46 +217,56 @@ LOAD o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr
                 0x000000ec                __vector_14
                 0x000000ec                __vector_10
                 0x000000ec                __vector_20
- .text          0x000000f0      0x842 Main.o
+ .text          0x000000f0      0xace Main.o
                 0x000000f0                abs(long)
                 0x00000114                __vector_31
                 0x000001ba                syncWait(unsigned long)
                 0x00000210                __vector_16
                 0x0000025c                wait(unsigned long const&)
-                0x000002e8                queue<char, 96u>::push(char)
-                0x00000352                USART1_t::send(char const*)
-                0x0000038e                __vector_30
-                0x00000430                queue<unsigned char, 96u>::push(unsigned char)
-                0x0000049a                dynamixel_t::sendChar(unsigned char)
-                0x000004be                __vector_18
-                0x00000522                queue<unsigned char, 96u>::pop()
-                0x00000570                dynamixel_t::peek(unsigned char&)
-                0x000005a2                dynamixel_t::com(unsigned char, unsigned char, unsigned char*, unsigned int, unsigned char, unsigned long, unsigned int)
-                0x00000778                dynamixel_t::writeWord(unsigned char, unsigned char, unsigned int)
-                0x000007f2                zakladni_pozice()
-                0x0000082e                run()
-                0x00000890                nastav_rychlost()
-                0x000008c2                __vector_19
- .text          0x00000932        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
- .text          0x00000932        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
- .text          0x00000932        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
- .text          0x00000932        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
- .text          0x00000932        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
-                0x00000932                . = ALIGN (0x2)
+                0x000002e8                uchop()
+                0x000002ea                queue<char, 96u>::push(char)
+                0x00000354                USART1_t::sendChar(char)
+                0x00000380                USART1_t::send(char const*)
+                0x000003a4                USART1_t::sendNumber(long, unsigned char)
+                0x00000508                __vector_30
+                0x000005aa                queue<unsigned char, 96u>::push(unsigned char)
+                0x00000614                dynamixel_t::sendChar(unsigned char)
+                0x00000638                __vector_18
+                0x0000069c                queue<unsigned char, 96u>::pop()
+                0x000006ea                dynamixel_t::peek(unsigned char&)
+                0x0000071c                dynamixel_t::com(unsigned char, unsigned char, unsigned char*, unsigned int, unsigned char, unsigned long, unsigned int)
+                0x000008f2                dynamixel_t::writeWord(unsigned char, unsigned char, unsigned int)
+                0x0000096c                pozice(unsigned char)
+                0x000009d2                nastav_rychlost()
+                0x00000a04                zakladni_pozice()
+                0x00000afe                run()
+                0x00000b4e                __vector_19
+ .text          0x00000bbe        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
+ .text          0x00000bbe        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+ .text          0x00000bbe        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
+ .text          0x00000bbe        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
+ .text          0x00000bbe        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .text          0x00000bbe        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
+ .text          0x00000bbe        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
+                0x00000bbe                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x00000932       0xde Main.o
-                0x00000932                main
- .text.libgcc   0x00000a10        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
- .text.libgcc   0x00000a10        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000a10        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
- .text.libgcc   0x00000a10        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
- .text.libgcc   0x00000a10        0x8 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
-                0x00000a10                __tablejump_elpm__
-                0x00000a18                . = ALIGN (0x2)
+ .text.startup  0x00000bbe       0xde Main.o
+                0x00000bbe                main
+ .text.libgcc   0x00000c9c       0x36 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
+                0x00000c9c                __divmodsi4
+ .text.libgcc   0x00000cd2        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x00000cd2        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000cd2        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000cd2        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .text.libgcc   0x00000cd2       0x44 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
+                0x00000cd2                __udivmodsi4
+ .text.libgcc   0x00000d16        0x8 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
+                0x00000d16                __tablejump_elpm__
+                0x00000d1e                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000a18        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
-                0x00000a18                _exit
-                0x00000a18                exit
+ .fini9         0x00000d1e        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+                0x00000d1e                _exit
+                0x00000d1e                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -271,20 +285,22 @@ LOAD o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000a18        0x4 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+ .fini0         0x00000d1e        0x4 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000a1c                _etext = .
+                0x00000d22                _etext = .
 
-.data           0x00800100      0x1e6 load address 0x00000a1c
+.data           0x00800100      0x1e6 load address 0x00000d22
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr51/crtm128.o
  .data          0x00800100      0x1e5 Main.o
-                0x00800113                pozice
+                0x00800113                hodnoty
+ .data          0x008002e5        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
  .data          0x008002e5        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
  .data          0x008002e5        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
  .data          0x008002e5        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
  .data          0x008002e5        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .data          0x008002e5        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
  .data          0x008002e5        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
  *(.data*)
  *(.rodata)
@@ -309,16 +325,18 @@ LOAD o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr
                 0x008003b6                bus
                 0x00800480                g_stopwatch_tickCounter
                 0x00800484                pc
+ .bss           0x00800573        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
  .bss           0x00800573        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
  .bss           0x00800573        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
  .bss           0x00800573        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
  .bss           0x00800573        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .bss           0x00800573        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
  .bss           0x00800573        0x0 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
  *(.bss*)
  *(COMMON)
                 0x00800573                PROVIDE (__bss_end, .)
-                0x00000a1c                __data_load_start = LOADADDR (.data)
-                0x00000c02                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000d22                __data_load_start = LOADADDR (.data)
+                0x00000f08                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800573        0x0
                 0x00800573                PROVIDE (__noinit_start, .)
@@ -378,69 +396,79 @@ LOAD o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xd0
+.debug_aranges  0x00000000      0x110
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 Main.o
  .debug_aranges
-                0x00000030       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+                0x00000030       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
  .debug_aranges
-                0x00000050       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
+                0x00000050       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
  .debug_aranges
-                0x00000070       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
+                0x00000070       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
  .debug_aranges
-                0x00000090       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+                0x00000090       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
  .debug_aranges
-                0x000000b0       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
+                0x000000b0       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .debug_aranges
+                0x000000d0       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
+ .debug_aranges
+                0x000000f0       0x20 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3532
+.debug_info     0x00000000     0x39b9
  *(.debug_info)
- .debug_info    0x00000000     0x30dc Main.o
- .debug_info    0x000030dc       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
- .debug_info    0x000031ba       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
- .debug_info    0x00003298       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
- .debug_info    0x00003376       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
- .debug_info    0x00003454       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
+ .debug_info    0x00000000     0x33a7 Main.o
+ .debug_info    0x000033a7       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
+ .debug_info    0x00003485       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+ .debug_info    0x00003563       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
+ .debug_info    0x00003641       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
+ .debug_info    0x0000371f       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .debug_info    0x000037fd       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
+ .debug_info    0x000038db       0xde o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x610
+.debug_abbrev   0x00000000      0x677
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x5ac Main.o
- .debug_abbrev  0x000005ac       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
- .debug_abbrev  0x000005c0       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
- .debug_abbrev  0x000005d4       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
- .debug_abbrev  0x000005e8       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
- .debug_abbrev  0x000005fc       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
+ .debug_abbrev  0x00000000      0x5eb Main.o
+ .debug_abbrev  0x000005eb       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
+ .debug_abbrev  0x000005ff       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+ .debug_abbrev  0x00000613       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
+ .debug_abbrev  0x00000627       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x0000063b       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .debug_abbrev  0x0000064f       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
+ .debug_abbrev  0x00000663       0x14 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
 
-.debug_line     0x00000000      0x6c6
+.debug_line     0x00000000      0x8b4
  *(.debug_line)
- .debug_line    0x00000000      0x3fe Main.o
- .debug_line    0x000003fe       0x88 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
- .debug_line    0x00000486       0x93 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
- .debug_line    0x00000519       0x8e o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
- .debug_line    0x000005a7       0x95 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
- .debug_line    0x0000063c       0x8a o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
+ .debug_line    0x00000000      0x4a3 Main.o
+ .debug_line    0x000004a3       0xa1 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_divmodsi4.o)
+ .debug_line    0x00000544       0x88 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_exit.o)
+ .debug_line    0x000005cc       0x93 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_copy_data.o)
+ .debug_line    0x0000065f       0x8e o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_clear_bss.o)
+ .debug_line    0x000006ed       0x95 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_ctors.o)
+ .debug_line    0x00000782       0xa8 o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_udivmodsi4.o)
+ .debug_line    0x0000082a       0x8a o:/avr/as6/extensions/atmel/avrgcc/3.4.0.65/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr51\libgcc.a(_tablejump_elpm.o)
 
-.debug_frame    0x00000000      0x3b4
+.debug_frame    0x00000000      0x4b0
  *(.debug_frame)
- .debug_frame   0x00000000      0x3b4 Main.o
+ .debug_frame   0x00000000      0x4b0 Main.o
 
-.debug_str      0x00000000     0x1b3e
+.debug_str      0x00000000     0x1bac
  *(.debug_str)
- .debug_str     0x00000000     0x1b3e Main.o
-                               0x1beb (size before relaxing)
+ .debug_str     0x00000000     0x1bac Main.o
+                               0x1c5f (size before relaxing)
 
-.debug_loc      0x00000000      0xf78
+.debug_loc      0x00000000     0x1394
  *(.debug_loc)
- .debug_loc     0x00000000      0xf78 Main.o
+ .debug_loc     0x00000000     0x1394 Main.o
 
 .debug_macinfo
  *(.debug_macinfo)
 OUTPUT(Robot_vychozi_CM5.elf elf32-avr)
 LOAD linker stubs
 
-.debug_ranges   0x00000000      0x188
- .debug_ranges  0x00000000      0x188 Main.o
+.debug_ranges   0x00000000      0x1b8
+ .debug_ranges  0x00000000      0x1b8 Main.o

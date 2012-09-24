@@ -1478,6 +1478,13 @@ public:
 		m_error.push(bus.readWord(currentID, P_PRESENT_POSITION_L, pos));
 		return pos;
 	}
+	//__________________________________________________________________________________;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;**************************************************
+	uint16_t present_speed()
+	{
+		uint16_t sped;
+		m_error.push(bus.readWord(currentID, P_PRESENT_SPEED_H, sped));
+		return sped;
+	}
 }; motor_t motor;
 
 class sensor_t

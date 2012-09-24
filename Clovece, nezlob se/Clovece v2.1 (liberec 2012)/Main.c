@@ -12,32 +12,21 @@
 /*  Pøíkazy knihovny:
 
 	zakladni_pozice	()
-	pøijeï			(è. pozice) 
-	uchop			()
-	polož			()
+	nastav_rychlost	()
+	pozice			(è. pozice)
+	*uchop			()
+	*polož			()
 	
 */
 
-
-
-
-
-
-
-
-
-
-
-
-
 void run()
 {
+	//nastav_rychlost();
 	for (;;)
 	{
-		motor[1].position(400);
-		_delay_ms(500);
 		zakladni_pozice();
-		_delay_ms(800);
+		motor[4].position(560);
+		_delay_ms(5000);
 		pc<<"ahoj"<<endl;
 		//TODO: Program
 	}
