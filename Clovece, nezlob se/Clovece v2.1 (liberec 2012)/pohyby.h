@@ -5,8 +5,8 @@
  *  Author: jirka1
  */ 
 
-#define		speed		50;
-#define		speed_koef	0,8;
+#define	rychlost_motoru		50
+#define	speed_koef			0,8
 
 uint8_t i=0;
 
@@ -23,13 +23,19 @@ uint16_t pozice[7][33] =
 };
 
 
-
-void zakladni_pozice()
+void nastav_rychlost()
 {
-	for(i=1; i==7; i++)
+	for(int i; i!=6; i++)
 	{
-		motor[i].position(pozice[i][0]);
+		motor[i].speed(rychlost_motoru);
 	}
 }
 
-
+void zakladni_pozice()
+{
+	for(int i=1; i!=6; i++)
+	{
+		motor[i].position(pozice[i][0]);
+	}
+	
+}
