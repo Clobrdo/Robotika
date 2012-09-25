@@ -14,35 +14,40 @@
 	zakladni_pozice	()
 	nastav_rychlost	()
 	pozice			(è. pozice)
+	cekej			()			//ceka dokud se motory hybou
 	*uchop			()
 	*polož			()
 	
 */
-int kostka()
-{
-	int kostka_h;
-				//Dušanùv algoritmus na náhodnost kostky
-	return kostka_h;	
-}
+
 bool kontrola_figurek()
 {
 						//kontrolovací algoritmus
 	bool kontrola = true;	//true nebo false, podle toho, jestli jsou figurky na místì
 	return kontrola;
 }
+
 void run()
 {
-	zakladni_pozice();
-	motor[4].position(560);
 	nastav_rychlost();
+
+	for(;;){
+		for (i2=0; i2!=32; i2++)
+		{
+			pozice(i2);
+			cekej();
+		}
+		
+	}
+	
 	while(true)
 	{
 		if(buttons.isStart())
 		{
-			int posun_h = kostka();
+			//int posun_h = kostka();
 		}
-		_delay_ms(5000);
-		pc<<"ahoj"<<endl;
-		//TODO: Program
+	_delay_ms(5000);
+	pc<<"ahoj"<<endl;
+	//TODO: Program
 	}
 }
