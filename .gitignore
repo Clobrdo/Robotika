@@ -2,7 +2,10 @@
 ## Eclipse
 #################
 
-Debug/*.*
+*.map
+*.iss
+*.elf
+
 
 *.pydevproject
 .project
