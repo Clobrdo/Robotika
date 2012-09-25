@@ -24,9 +24,9 @@ void run()
 	//nastav_rychlost();
 	for (;;)
 	{
-		zakladni_pozice();
+		zakladni_pozice();		
 		motor[4].position(560);
-		_delay_ms(5000);
+		cekej();
 		pc<<"ahoj"<<endl;
 		//TODO: Program
 	}

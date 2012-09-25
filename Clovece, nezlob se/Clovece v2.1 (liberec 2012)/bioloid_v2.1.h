@@ -1482,7 +1482,7 @@ public:
 	uint16_t present_speed()
 	{
 		uint16_t sped;
-		m_error.push(bus.readWord(currentID, P_PRESENT_SPEED_H, sped));
+		m_error.push(bus.readWord(currentID, P_PRESENT_SPEED_L, sped));
 		return sped;
 	}
 }; motor_t motor;

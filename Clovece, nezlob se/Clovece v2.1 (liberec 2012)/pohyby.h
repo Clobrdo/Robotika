@@ -3,7 +3,10 @@
  *
  * Created: 22.9.2012 20:35:06
  *  Author: jirka1
- */ 
+*/
+
+#include <avr/delay.h>
+
 
 #define	rychlost_motoru		500
 #define pocet_motoru		6
@@ -23,6 +26,16 @@ uint16_t hodnoty[7][33] =
 {512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
 };
 
+void cekej()
+{
+i=1;
+_delay_ms(100);
+	do 
+	{
+		if (motor[i].present_speed()>10)	{i=1;}
+		else {i++;}
+	} while (i!=pocet_motoru);
+}
 
 void nastav_rychlost()
 {
@@ -38,8 +51,8 @@ void zakladni_pozice()
 	{
 		motor[i].position(hodnoty[i][0]);
 	}
-	pc<<motor[4].present_speed()<<endl;
-
+cekej();
+pc<<"ziju 5"<<endl;
 }
 
 void pozice(uint8_t c_pozice)
