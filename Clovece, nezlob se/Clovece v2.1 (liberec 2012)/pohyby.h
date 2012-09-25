@@ -7,14 +7,13 @@
 
 #include <avr/delay.h>
 
-
 #define	rychlost_motoru		500
 #define pocet_motoru		6
 #define	speed_koef			0,8
 
 uint8_t i=0;		//promnìná do smyèek
 
-uint16_t hodnoty[7][33] =
+uint16_t hodnoty_pozice[7][33]	=
 {
 //0		1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16		17		18		19		20		21		22		23		24		25		26		27		28		29		30		31		32
 {512,	50,		14,		587,	554,	510,	468,	428,	1014,	972,	935,	892,	858,	819,	780,	743,	700,	659,	626,	589,	548,	510,	470,	434,	392,	352,	316,	283,	239,	202,	168,	126,	88	},
@@ -24,6 +23,17 @@ uint16_t hodnoty[7][33] =
 {512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
 {512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
 {512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
+};
+
+uint16_t hodnoty_rychlost[7][1] =
+{
+{100},
+{100},
+{100},
+{100},
+{100},
+{100},
+{100}	
 };
 
 void cekej()
@@ -37,6 +47,8 @@ _delay_ms(100);
 	} while (i!=pocet_motoru);
 }
 
+//void nastav_rychlost_m()
+
 void nastav_rychlost()
 {
 	for(int i; i!=pocet_motoru; i++)
@@ -49,7 +61,7 @@ void zakladni_pozice()
 {
 	for(int i=1; i!=pocet_motoru; i++)
 	{
-		motor[i].position(hodnoty[i][0]);
+		motor[i].position(hodnoty_pozice[i][0]);
 	}
 cekej();
 pc<<"ziju 5"<<endl;
@@ -59,7 +71,7 @@ void pozice(uint8_t c_pozice)
 {
 	for(int i; i!=pocet_motoru; i++)
 	{
-		motor[i].position(hodnoty[i][c_pozice]);
+		motor[i].position(hodnoty_pozice[i][c_pozice]);
 	}
 }
 
@@ -67,3 +79,4 @@ void uchop()
 {
 	
 }
+

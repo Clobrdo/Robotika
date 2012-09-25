@@ -3,31 +3,31 @@ Robot_vychozi_CM5.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         000001ec  00800100  00000b8c  00000c20  2**0
+  0 .data         000001fa  00800100  00000b8c  00000c20  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00000b8c  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000028d  008002ec  008002ec  00000e0c  2**0
+  2 .bss          0000028d  008002fa  008002fa  00000e1a  2**0
                   ALLOC
-  3 .stab         000006cc  00000000  00000000  00000e0c  2**2
+  3 .stab         000006cc  00000000  00000000  00000e1c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000085  00000000  00000000  000014d8  2**0
+  4 .stabstr      00000085  00000000  00000000  000014e8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 000000d0  00000000  00000000  00001560  2**3
+  5 .debug_aranges 000000d0  00000000  00000000  00001570  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00003714  00000000  00000000  00001630  2**0
+  6 .debug_info   0000373c  00000000  00000000  00001640  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000646  00000000  00000000  00004d44  2**0
+  7 .debug_abbrev 00000646  00000000  00000000  00004d7c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000073e  00000000  00000000  0000538a  2**0
+  8 .debug_line   0000073e  00000000  00000000  000053c2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000460  00000000  00000000  00005ac8  2**2
+  9 .debug_frame  00000460  00000000  00000000  00005b00  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001ba4  00000000  00000000  00005f28  2**0
+ 10 .debug_str    00001bbc  00000000  00000000  00005f60  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001140  00000000  00000000  00007acc  2**0
+ 11 .debug_loc    00001140  00000000  00000000  00007b1c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000248  00000000  00000000  00008c0c  2**0
+ 12 .debug_ranges 00000248  00000000  00000000  00008c5c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -91,13 +91,13 @@ Disassembly of section .text:
   a8:	02 c0       	rjmp	.+4      	; 0xae <__do_copy_data+0x14>
   aa:	07 90       	elpm	r0, Z+
   ac:	0d 92       	st	X+, r0
-  ae:	ac 3e       	cpi	r26, 0xEC	; 236
+  ae:	aa 3f       	cpi	r26, 0xFA	; 250
   b0:	b1 07       	cpc	r27, r17
   b2:	d9 f7       	brne	.-10     	; 0xaa <__do_copy_data+0x10>
 
 000000b4 <__do_clear_bss>:
   b4:	15 e0       	ldi	r17, 0x05	; 5
-  b6:	ac ee       	ldi	r26, 0xEC	; 236
+  b6:	aa ef       	ldi	r26, 0xFA	; 250
   b8:	b2 e0       	ldi	r27, 0x02	; 2
   ba:	01 c0       	rjmp	.+2      	; 0xbe <.do_clear_bss_start>
 
@@ -105,7 +105,7 @@ Disassembly of section .text:
   bc:	1d 92       	st	X+, r1
 
 000000be <.do_clear_bss_start>:
-  be:	a9 37       	cpi	r26, 0x79	; 121
+  be:	a7 38       	cpi	r26, 0x87	; 135
   c0:	b1 07       	cpc	r27, r17
   c2:	e1 f7       	brne	.-8      	; 0xbc <.do_clear_bss_loop>
 
@@ -185,10 +185,10 @@ public:
 	bool is_empty() const
 	{
 		if(m_write == m_read)
- 12e:	20 91 51 05 	lds	r18, 0x0551
- 132:	30 91 52 05 	lds	r19, 0x0552
- 136:	80 91 4f 05 	lds	r24, 0x054F
- 13a:	90 91 50 05 	lds	r25, 0x0550
+ 12e:	20 91 5f 05 	lds	r18, 0x055F
+ 132:	30 91 60 05 	lds	r19, 0x0560
+ 136:	80 91 5d 05 	lds	r24, 0x055D
+ 13a:	90 91 5e 05 	lds	r25, 0x055E
  13e:	28 17       	cp	r18, r24
  140:	39 07       	cpc	r19, r25
  142:	71 f4       	brne	.+28     	; 0x160 <__vector_31+0x4c>
@@ -204,8 +204,8 @@ public:
 		T data = m[m_read];
 		if(++m_read == size)
 			m_read = 0;
- 14a:	10 92 50 05 	sts	0x0550, r1
- 14e:	10 92 4f 05 	sts	0x054F, r1
+ 14a:	10 92 5e 05 	sts	0x055E, r1
+ 14e:	10 92 5d 05 	sts	0x055D, r1
  152:	24 c0       	rjmp	.+72     	; 0x19c <__vector_31+0x88>
 {
 	char data;
@@ -223,19 +223,19 @@ public:
 	bool is_empty() const
 	{
 		if(m_write == m_read)
- 160:	20 91 51 05 	lds	r18, 0x0551
- 164:	30 91 52 05 	lds	r19, 0x0552
- 168:	80 91 4f 05 	lds	r24, 0x054F
- 16c:	90 91 50 05 	lds	r25, 0x0550
+ 160:	20 91 5f 05 	lds	r18, 0x055F
+ 164:	30 91 60 05 	lds	r19, 0x0560
+ 168:	80 91 5d 05 	lds	r24, 0x055D
+ 16c:	90 91 5e 05 	lds	r25, 0x055E
 		return true;
 	}
 	T pop ()
 	{
 		if(is_empty())
 			return m[m_read];
- 170:	e0 91 4f 05 	lds	r30, 0x054F
- 174:	f0 91 50 05 	lds	r31, 0x0550
- 178:	e1 51       	subi	r30, 0x11	; 17
+ 170:	e0 91 5d 05 	lds	r30, 0x055D
+ 174:	f0 91 5e 05 	lds	r31, 0x055E
+ 178:	e3 50       	subi	r30, 0x03	; 3
  17a:	fb 4f       	sbci	r31, 0xFB	; 251
 	volatile uint16_t m_write;
 public:
@@ -254,11 +254,11 @@ public:
 		T data = m[m_read];
  182:	20 81       	ld	r18, Z
 		if(++m_read == size)
- 184:	80 91 4f 05 	lds	r24, 0x054F
- 188:	90 91 50 05 	lds	r25, 0x0550
+ 184:	80 91 5d 05 	lds	r24, 0x055D
+ 188:	90 91 5e 05 	lds	r25, 0x055E
  18c:	01 96       	adiw	r24, 0x01	; 1
- 18e:	90 93 50 05 	sts	0x0550, r25
- 192:	80 93 4f 05 	sts	0x054F, r24
+ 18e:	90 93 5e 05 	sts	0x055E, r25
+ 192:	80 93 5d 05 	sts	0x055D, r24
  196:	80 36       	cpi	r24, 0x60	; 96
  198:	91 05       	cpc	r25, r1
  19a:	b9 f2       	breq	.-82     	; 0x14a <__vector_31+0x36>
@@ -373,18 +373,18 @@ ISR(TIMER0_OVF_vect)
  21e:	af 93       	push	r26
  220:	bf 93       	push	r27
 	g_stopwatch_tickCounter += 128;
- 222:	80 91 86 04 	lds	r24, 0x0486
- 226:	90 91 87 04 	lds	r25, 0x0487
- 22a:	a0 91 88 04 	lds	r26, 0x0488
- 22e:	b0 91 89 04 	lds	r27, 0x0489
+ 222:	80 91 94 04 	lds	r24, 0x0494
+ 226:	90 91 95 04 	lds	r25, 0x0495
+ 22a:	a0 91 96 04 	lds	r26, 0x0496
+ 22e:	b0 91 97 04 	lds	r27, 0x0497
  232:	80 58       	subi	r24, 0x80	; 128
  234:	9f 4f       	sbci	r25, 0xFF	; 255
  236:	af 4f       	sbci	r26, 0xFF	; 255
  238:	bf 4f       	sbci	r27, 0xFF	; 255
- 23a:	80 93 86 04 	sts	0x0486, r24
- 23e:	90 93 87 04 	sts	0x0487, r25
- 242:	a0 93 88 04 	sts	0x0488, r26
- 246:	b0 93 89 04 	sts	0x0489, r27
+ 23a:	80 93 94 04 	sts	0x0494, r24
+ 23e:	90 93 95 04 	sts	0x0495, r25
+ 242:	a0 93 96 04 	sts	0x0496, r26
+ 246:	b0 93 97 04 	sts	0x0497, r27
 }
  24a:	bf 91       	pop	r27
  24c:	af 91       	pop	r26
@@ -413,10 +413,10 @@ public:
 	stopwatch()
 	{
 		offset = g_stopwatch_tickCounter + (TCNT0>>1);
- 26a:	80 91 86 04 	lds	r24, 0x0486
- 26e:	90 91 87 04 	lds	r25, 0x0487
- 272:	a0 91 88 04 	lds	r26, 0x0488
- 276:	b0 91 89 04 	lds	r27, 0x0489
+ 26a:	80 91 94 04 	lds	r24, 0x0494
+ 26e:	90 91 95 04 	lds	r25, 0x0495
+ 272:	a0 91 96 04 	lds	r26, 0x0496
+ 276:	b0 91 97 04 	lds	r27, 0x0497
  27a:	22 b7       	in	r18, 0x32	; 50
  27c:	30 e0       	ldi	r19, 0x00	; 0
  27e:	35 95       	asr	r19
@@ -449,10 +449,10 @@ void wait(const uint32_t &time)
 	{
 		if(running)
 			return g_stopwatch_tickCounter + (TCNT0>>1) - offset;
- 29c:	40 91 86 04 	lds	r20, 0x0486
- 2a0:	50 91 87 04 	lds	r21, 0x0487
- 2a4:	60 91 88 04 	lds	r22, 0x0488
- 2a8:	70 91 89 04 	lds	r23, 0x0489
+ 29c:	40 91 94 04 	lds	r20, 0x0494
+ 2a0:	50 91 95 04 	lds	r21, 0x0495
+ 2a4:	60 91 96 04 	lds	r22, 0x0496
+ 2a8:	70 91 97 04 	lds	r23, 0x0497
  2ac:	22 b7       	in	r18, 0x32	; 50
  2ae:	30 e0       	ldi	r19, 0x00	; 0
  2b0:	35 95       	asr	r19
@@ -695,7 +695,7 @@ public:
 	void data_in(char &ch)
 	{
 		m_rx.push(ch);
- 3c4:	8a e8       	ldi	r24, 0x8A	; 138
+ 3c4:	88 e9       	ldi	r24, 0x98	; 152
  3c6:	94 e0       	ldi	r25, 0x04	; 4
  3c8:	6c 2f       	mov	r22, r28
  3ca:	0e 94 75 01 	call	0x2ea	; 0x2ea <_ZN5queueIcLj96EE4pushEc>
@@ -705,10 +705,10 @@ public:
 	static const unsigned char bootSeq[] = { '#', '#', '#', '#' };
 	static uint8_t state = 0;
 	if (data == bootSeq[state])
- 3ce:	80 91 78 05 	lds	r24, 0x0578
+ 3ce:	80 91 86 05 	lds	r24, 0x0586
  3d2:	e8 2f       	mov	r30, r24
  3d4:	f0 e0       	ldi	r31, 0x00	; 0
- 3d6:	e8 51       	subi	r30, 0x18	; 24
+ 3d6:	ea 50       	subi	r30, 0x0A	; 10
  3d8:	fd 4f       	sbci	r31, 0xFD	; 253
  3da:	90 81       	ld	r25, Z
  3dc:	c9 17       	cp	r28, r25
@@ -716,7 +716,7 @@ public:
 	{
 		if (++state == 4)
  3e0:	8f 5f       	subi	r24, 0xFF	; 255
- 3e2:	80 93 78 05 	sts	0x0578, r24
+ 3e2:	80 93 86 05 	sts	0x0586, r24
  3e6:	84 30       	cpi	r24, 0x04	; 4
  3e8:	81 f4       	brne	.+32     	; 0x40a <__vector_30+0x7a>
 		{
@@ -742,7 +742,7 @@ public:
 	}
 	else
 		state = 0;
- 406:	10 92 78 05 	sts	0x0578, r1
+ 406:	10 92 86 05 	sts	0x0586, r1
 }
  40a:	ff 91       	pop	r31
  40c:	ef 91       	pop	r30
@@ -927,7 +927,7 @@ public:
 	void data_in(const uint8_t &ch)
 	{
 		while(!m_rx.push(ch)) {}
- 4ee:	8c eb       	ldi	r24, 0xBC	; 188
+ 4ee:	8a ec       	ldi	r24, 0xCA	; 202
  4f0:	93 e0       	ldi	r25, 0x03	; 3
  4f2:	6c 2f       	mov	r22, r28
  4f4:	0e 94 19 02 	call	0x432	; 0x432 <_ZN5queueIhLj96EE4pushEh>
@@ -1562,7 +1562,7 @@ void pozice(uint8_t c_pozice)
  80a:	d0 e0       	ldi	r29, 0x00	; 0
  80c:	cc 0f       	add	r28, r28
  80e:	dd 1f       	adc	r29, r29
- 810:	c6 5e       	subi	r28, 0xE6	; 230
+ 810:	c8 5d       	subi	r28, 0xD8	; 216
  812:	de 4f       	sbci	r29, 0xFE	; 254
 {
 	for(int i; i!=pocet_motoru; i++)
@@ -1573,7 +1573,7 @@ void pozice(uint8_t c_pozice)
 	motor_t &operator [] (const uint8_t &id)
 	{
 		currentID = id;
- 816:	00 93 56 03 	sts	0x0356, r16
+ 816:	00 93 64 03 	sts	0x0364, r16
 	}
 cekej();
 pc<<"ziju 5"<<endl;
@@ -1591,13 +1591,13 @@ void pozice(uint8_t c_pozice)
 		m_error.push(bus.writeWord(currentID, P_GOAL_POSITION_L, position));
  820:	20 81       	ld	r18, Z
  822:	31 81       	ldd	r19, Z+1	; 0x01
- 824:	8c eb       	ldi	r24, 0xBC	; 188
+ 824:	8a ec       	ldi	r24, 0xCA	; 202
  826:	93 e0       	ldi	r25, 0x03	; 3
  828:	60 2f       	mov	r22, r16
  82a:	4e e1       	ldi	r20, 0x1E	; 30
  82c:	0e 94 bd 03 	call	0x77a	; 0x77a <_ZN11dynamixel_t9writeWordEhhj>
  830:	68 2f       	mov	r22, r24
- 832:	87 e5       	ldi	r24, 0x57	; 87
+ 832:	85 e6       	ldi	r24, 0x65	; 101
  834:	93 e0       	ldi	r25, 0x03	; 3
  836:	0e 94 19 02 	call	0x432	; 0x432 <_ZN5queueIhLj96EE4pushEh>
 {
@@ -1612,7 +1612,7 @@ void pozice(uint8_t c_pozice)
  848:	11 05       	cpc	r17, r1
  84a:	29 f7       	brne	.-54     	; 0x816 <_Z6poziceh+0x22>
 	{
-		motor[i].position(hodnoty[i][c_pozice]);
+		motor[i].position(hodnoty_pozice[i][c_pozice]);
 	}
 }
  84c:	df 91       	pop	r29
@@ -1624,9 +1624,9 @@ void pozice(uint8_t c_pozice)
  858:	08 95       	ret
 
 0000085a <_Z15nastav_rychlostv>:
-		else {i++;}
-	} while (i!=pocet_motoru);
 }
+
+//void nastav_rychlost_m()
 
 void nastav_rychlost()
 {
@@ -1640,14 +1640,14 @@ void nastav_rychlost()
 	motor_t &operator [] (const uint8_t &id)
 	{
 		currentID = id;
- 860:	c0 93 56 03 	sts	0x0356, r28
+ 860:	c0 93 64 03 	sts	0x0364, r28
 		m_error.push(bus.writeWord(currentID, P_GOAL_SPEED_L, speed));
 		return *this;
 	}
 	motor_t & speed(const int16_t &speed = 256)
 	{
 		m_error.push(bus.writeWord(currentID, P_GOAL_SPEED_L, ((uint16_t)(speed))));
- 864:	8c eb       	ldi	r24, 0xBC	; 188
+ 864:	8a ec       	ldi	r24, 0xCA	; 202
  866:	93 e0       	ldi	r25, 0x03	; 3
  868:	6c 2f       	mov	r22, r28
  86a:	40 e2       	ldi	r20, 0x20	; 32
@@ -1655,7 +1655,7 @@ void nastav_rychlost()
  86e:	31 e0       	ldi	r19, 0x01	; 1
  870:	0e 94 bd 03 	call	0x77a	; 0x77a <_ZN11dynamixel_t9writeWordEhhj>
  874:	68 2f       	mov	r22, r24
- 876:	87 e5       	ldi	r24, 0x57	; 87
+ 876:	85 e6       	ldi	r24, 0x65	; 101
  878:	93 e0       	ldi	r25, 0x03	; 3
  87a:	0e 94 19 02 	call	0x432	; 0x432 <_ZN5queueIhLj96EE4pushEh>
  87e:	21 96       	adiw	r28, 0x01	; 1
@@ -1671,8 +1671,8 @@ void nastav_rychlost()
  88a:	08 95       	ret
 
 0000088c <_Z5cekejv>:
-{512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
-{512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
+{100},
+{100}	
 };
 
 void cekej()
@@ -1701,7 +1701,7 @@ void cekej()
  8b6:	de b7       	in	r29, 0x3e	; 62
 i=1;
  8b8:	81 e0       	ldi	r24, 0x01	; 1
- 8ba:	80 93 ec 02 	sts	0x02EC, r24
+ 8ba:	80 93 fa 02 	sts	0x02FA, r24
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -1739,14 +1739,14 @@ _delay_ms(100);
 		if (motor[i].present_speed()>10)	{i=1;}
  8e4:	33 24       	eor	r3, r3
  8e6:	33 94       	inc	r3
- 8e8:	60 91 ec 02 	lds	r22, 0x02EC
+ 8e8:	60 91 fa 02 	lds	r22, 0x02FA
 		m_error.overwrite = true;
 	}
 
 	motor_t &operator [] (const uint8_t &id)
 	{
 		currentID = id;
- 8ec:	60 93 56 03 	sts	0x0356, r22
+ 8ec:	60 93 64 03 	sts	0x0364, r22
 		data = repository[1];
 		return repository[0];
 	}
@@ -1761,7 +1761,7 @@ _delay_ms(100);
  8fa:	5a 82       	std	Y+2, r5	; 0x02
  8fc:	49 82       	std	Y+1, r4	; 0x01
 		repository[0] = com(ID, INST_READ, &repository[0], 2, DYNAMIXEL_RETURN!=0?3:0, DYNAMIXEL_RESPOND_TIME)==0?repository[0]:(repository[0]|(1<<7));
- 8fe:	8c eb       	ldi	r24, 0xBC	; 188
+ 8fe:	8a ec       	ldi	r24, 0xCA	; 202
  900:	93 e0       	ldi	r25, 0x03	; 3
  902:	42 e0       	ldi	r20, 0x02	; 2
  904:	93 01       	movw	r18, r6
@@ -1801,25 +1801,25 @@ _delay_ms(100);
 	{
 		uint16_t sped;
 		m_error.push(bus.readWord(currentID, P_PRESENT_SPEED_L, sped));
- 942:	87 e5       	ldi	r24, 0x57	; 87
+ 942:	85 e6       	ldi	r24, 0x65	; 101
  944:	93 e0       	ldi	r25, 0x03	; 3
  946:	0e 94 19 02 	call	0x432	; 0x432 <_ZN5queueIhLj96EE4pushEh>
  94a:	0b 30       	cpi	r16, 0x0B	; 11
  94c:	11 05       	cpc	r17, r1
  94e:	18 f0       	brcs	.+6      	; 0x956 <_Z5cekejv+0xca>
- 950:	30 92 ec 02 	sts	0x02EC, r3
+ 950:	30 92 fa 02 	sts	0x02FA, r3
  954:	05 c0       	rjmp	.+10     	; 0x960 <_Z5cekejv+0xd4>
 		else {i++;}
- 956:	80 91 ec 02 	lds	r24, 0x02EC
+ 956:	80 91 fa 02 	lds	r24, 0x02FA
  95a:	8f 5f       	subi	r24, 0xFF	; 255
- 95c:	80 93 ec 02 	sts	0x02EC, r24
+ 95c:	80 93 fa 02 	sts	0x02FA, r24
 
 void cekej()
 {
 i=1;
 _delay_ms(100);
 	do 
- 960:	80 91 ec 02 	lds	r24, 0x02EC
+ 960:	80 91 fa 02 	lds	r24, 0x02FA
  964:	86 30       	cpi	r24, 0x06	; 6
  966:	09 f0       	breq	.+2      	; 0x96a <_Z5cekejv+0xde>
  968:	bf cf       	rjmp	.-130    	; 0x8e8 <_Z5cekejv+0x5c>
@@ -1862,7 +1862,7 @@ void zakladni_pozice()
  998:	1f 93       	push	r17
  99a:	cf 93       	push	r28
  99c:	df 93       	push	r29
- 99e:	cc e5       	ldi	r28, 0x5C	; 92
+ 99e:	ca e6       	ldi	r28, 0x6A	; 106
  9a0:	d1 e0       	ldi	r29, 0x01	; 1
  9a2:	11 e0       	ldi	r17, 0x01	; 1
 		m_error.overwrite = true;
@@ -1871,7 +1871,7 @@ void zakladni_pozice()
 	motor_t &operator [] (const uint8_t &id)
 	{
 		currentID = id;
- 9a4:	10 93 56 03 	sts	0x0356, r17
+ 9a4:	10 93 64 03 	sts	0x0364, r17
 		m_error.push(error);
 		return *this;
 	}
@@ -1880,13 +1880,13 @@ void zakladni_pozice()
 		m_error.push(bus.writeWord(currentID, P_GOAL_POSITION_L, position));
  9a8:	28 81       	ld	r18, Y
  9aa:	39 81       	ldd	r19, Y+1	; 0x01
- 9ac:	8c eb       	ldi	r24, 0xBC	; 188
+ 9ac:	8a ec       	ldi	r24, 0xCA	; 202
  9ae:	93 e0       	ldi	r25, 0x03	; 3
  9b0:	61 2f       	mov	r22, r17
  9b2:	4e e1       	ldi	r20, 0x1E	; 30
  9b4:	0e 94 bd 03 	call	0x77a	; 0x77a <_ZN11dynamixel_t9writeWordEhhj>
  9b8:	68 2f       	mov	r22, r24
- 9ba:	87 e5       	ldi	r24, 0x57	; 87
+ 9ba:	85 e6       	ldi	r24, 0x65	; 101
  9bc:	93 e0       	ldi	r25, 0x03	; 3
  9be:	0e 94 19 02 	call	0x432	; 0x432 <_ZN5queueIhLj96EE4pushEh>
  9c2:	1f 5f       	subi	r17, 0xFF	; 255
@@ -1896,7 +1896,7 @@ void zakladni_pozice()
  9c8:	16 30       	cpi	r17, 0x06	; 6
  9ca:	61 f7       	brne	.-40     	; 0x9a4 <_Z15zakladni_pozicev+0xc>
 	{
-		motor[i].position(hodnoty[i][0]);
+		motor[i].position(hodnoty_pozice[i][0]);
 	}
 cekej();
  9cc:	0e 94 46 04 	call	0x88c	; 0x88c <_Z5cekejv>
@@ -1906,12 +1906,12 @@ cekej();
 	USART1_t &operator << (const char *ch)
 	{
 		send(ch);
- 9d0:	8a e8       	ldi	r24, 0x8A	; 138
+ 9d0:	88 e9       	ldi	r24, 0x98	; 152
  9d2:	94 e0       	ldi	r25, 0x04	; 4
  9d4:	60 e0       	ldi	r22, 0x00	; 0
  9d6:	71 e0       	ldi	r23, 0x01	; 1
  9d8:	0e 94 aa 01 	call	0x354	; 0x354 <_ZN8USART1_t4sendEPKc>
- 9dc:	8a e8       	ldi	r24, 0x8A	; 138
+ 9dc:	88 e9       	ldi	r24, 0x98	; 152
  9de:	94 e0       	ldi	r25, 0x04	; 4
  9e0:	67 e0       	ldi	r22, 0x07	; 7
  9e2:	71 e0       	ldi	r23, 0x01	; 1
@@ -1938,14 +1938,14 @@ void run()
 	{
 		zakladni_pozice();		
  9f2:	0e 94 cc 04 	call	0x998	; 0x998 <_Z15zakladni_pozicev>
- 9f6:	c0 93 56 03 	sts	0x0356, r28
+ 9f6:	c0 93 64 03 	sts	0x0364, r28
 		m_error.push(bus.writeWord(currentID, P_GOAL_POSITION_L, position));
 		return *this;
 	}
 	motor_t & position(const int16_t &position)
 	{
 		m_error.push(bus.writeWord(currentID, P_GOAL_POSITION_L, ((uint16_t)(position))));
- 9fa:	8c eb       	ldi	r24, 0xBC	; 188
+ 9fa:	8a ec       	ldi	r24, 0xCA	; 202
  9fc:	93 e0       	ldi	r25, 0x03	; 3
  9fe:	64 e0       	ldi	r22, 0x04	; 4
  a00:	4e e1       	ldi	r20, 0x1E	; 30
@@ -1953,7 +1953,7 @@ void run()
  a04:	32 e0       	ldi	r19, 0x02	; 2
  a06:	0e 94 bd 03 	call	0x77a	; 0x77a <_ZN11dynamixel_t9writeWordEhhj>
  a0a:	68 2f       	mov	r22, r24
- a0c:	87 e5       	ldi	r24, 0x57	; 87
+ a0c:	85 e6       	ldi	r24, 0x65	; 101
  a0e:	93 e0       	ldi	r25, 0x03	; 3
  a10:	0e 94 19 02 	call	0x432	; 0x432 <_ZN5queueIhLj96EE4pushEh>
 		motor[4].position(560);
@@ -1965,12 +1965,12 @@ void run()
 	USART1_t &operator << (const char *ch)
 	{
 		send(ch);
- a18:	8a e8       	ldi	r24, 0x8A	; 138
+ a18:	88 e9       	ldi	r24, 0x98	; 152
  a1a:	94 e0       	ldi	r25, 0x04	; 4
  a1c:	6a e0       	ldi	r22, 0x0A	; 10
  a1e:	71 e0       	ldi	r23, 0x01	; 1
  a20:	0e 94 aa 01 	call	0x354	; 0x354 <_ZN8USART1_t4sendEPKc>
- a24:	8a e8       	ldi	r24, 0x8A	; 138
+ a24:	88 e9       	ldi	r24, 0x98	; 152
  a26:	94 e0       	ldi	r25, 0x04	; 4
  a28:	67 e0       	ldi	r22, 0x07	; 7
  a2a:	71 e0       	ldi	r23, 0x01	; 1
@@ -2009,10 +2009,10 @@ public:
 	bool is_empty() const
 	{
 		if(m_write == m_read)
- a58:	20 91 83 04 	lds	r18, 0x0483
- a5c:	30 91 84 04 	lds	r19, 0x0484
- a60:	80 91 81 04 	lds	r24, 0x0481
- a64:	90 91 82 04 	lds	r25, 0x0482
+ a58:	20 91 91 04 	lds	r18, 0x0491
+ a5c:	30 91 92 04 	lds	r19, 0x0492
+ a60:	80 91 8f 04 	lds	r24, 0x048F
+ a64:	90 91 90 04 	lds	r25, 0x0490
  a68:	28 17       	cp	r18, r24
  a6a:	39 07       	cpc	r19, r25
  a6c:	11 f4       	brne	.+4      	; 0xa72 <__vector_19+0x40>
@@ -2030,7 +2030,7 @@ public:
 		if(m_tx.is_empty())
 			return false;
 		ch = m_tx.pop();
- a72:	81 e2       	ldi	r24, 0x21	; 33
+ a72:	8f e2       	ldi	r24, 0x2F	; 47
  a74:	94 e0       	ldi	r25, 0x04	; 4
  a76:	0e 94 92 02 	call	0x524	; 0x524 <_ZN5queueIhLj96EE3popEv>
 	uint8_t data;
@@ -2097,9 +2097,9 @@ int main()
 	void init(uint32_t speed)
 	{
 		m_tx.overwrite = false;
- aba:	10 92 53 05 	sts	0x0553, r1
+ aba:	10 92 61 05 	sts	0x0561, r1
 		m_rx.overwrite = false;
- abe:	10 92 ee 04 	sts	0x04EE, r1
+ abe:	10 92 fc 04 	sts	0x04FC, r1
 		UCSR1A = (1<<U2X1);
  ac2:	d2 e0       	ldi	r29, 0x02	; 2
  ac4:	d0 93 9b 00 	sts	0x009B, r29
@@ -2117,20 +2117,20 @@ int main()
  ada:	20 93 99 00 	sts	0x0099, r18
 		numbersSpaces = 1;
  ade:	c1 e0       	ldi	r28, 0x01	; 1
- ae0:	c0 93 54 05 	sts	0x0554, r28
+ ae0:	c0 93 62 05 	sts	0x0562, r28
 		cin_isFirst = true;
- ae4:	c0 93 55 05 	sts	0x0555, r28
+ ae4:	c0 93 63 05 	sts	0x0563, r28
 		cin_isGood = true;
- ae8:	c0 93 77 05 	sts	0x0577, r28
+ ae8:	c0 93 85 05 	sts	0x0585, r28
 		UCSR0B = (1<<RXCIE0)|(1<<RXEN0);
 	}
 
 	void init(uint32_t speed)
 	{
 		m_tx.overwrite = false;
- aec:	10 92 85 04 	sts	0x0485, r1
+ aec:	10 92 93 04 	sts	0x0493, r1
 		m_rx.overwrite = false;
- af0:	10 92 20 04 	sts	0x0420, r1
+ af0:	10 92 2e 04 	sts	0x042E, r1
 		UCSR0A = (1<<U2X0);
  af4:	db b9       	out	0x0b, r29	; 11
 		UCSR0B = (1<<RXCIE0)|(1<<RXEN0)|(1<<TXEN0);
@@ -2167,7 +2167,7 @@ int main()
  b18:	90 e0       	ldi	r25, 0x00	; 0
  b1a:	0e 94 dd 00 	call	0x1ba	; 0x1ba <_Z8syncWaitm>
 	pc.send("\n\n\r  ok \n\r");
- b1e:	8a e8       	ldi	r24, 0x8A	; 138
+ b1e:	88 e9       	ldi	r24, 0x98	; 152
  b20:	94 e0       	ldi	r25, 0x04	; 4
  b22:	6f e0       	ldi	r22, 0x0F	; 15
  b24:	71 e0       	ldi	r23, 0x01	; 1
@@ -2178,10 +2178,10 @@ public:
 	bool is_empty() const
 	{
 		if(m_write == m_read)
- b2a:	20 91 51 05 	lds	r18, 0x0551
- b2e:	30 91 52 05 	lds	r19, 0x0552
- b32:	80 91 4f 05 	lds	r24, 0x054F
- b36:	90 91 50 05 	lds	r25, 0x0550
+ b2a:	20 91 5f 05 	lds	r18, 0x055F
+ b2e:	30 91 60 05 	lds	r19, 0x0560
+ b32:	80 91 5d 05 	lds	r24, 0x055D
+ b36:	90 91 5e 05 	lds	r25, 0x055E
  b3a:	28 17       	cp	r18, r24
  b3c:	39 07       	cpc	r19, r25
  b3e:	21 f0       	breq	.+8      	; 0xb48 <main+0xa6>
@@ -2219,7 +2219,7 @@ public:
 			m_data[pointer] = 0;
  b5a:	e8 2f       	mov	r30, r24
  b5c:	f0 e0       	ldi	r31, 0x00	; 0
- b5e:	ea 5a       	subi	r30, 0xAA	; 170
+ b5e:	ec 59       	subi	r30, 0x9C	; 156
  b60:	fa 4f       	sbci	r31, 0xFA	; 250
  b62:	10 82       	st	Z, r1
  b64:	8f 5f       	subi	r24, 0xFF	; 255
@@ -2233,7 +2233,7 @@ public:
  b68:	c1 f7       	brne	.-16     	; 0xb5a <_GLOBAL__sub_I__Z3absl+0x4>
 			m_data[pointer] = 0;
 		pointer = 0;
- b6a:	10 92 76 05 	sts	0x0576, r1
+ b6a:	10 92 84 05 	sts	0x0584, r1
 	uint8_t currentID;
 	queue <uint8_t, AX_ERROR_BUF> m_error;
 
@@ -2241,17 +2241,17 @@ public:
 	{
 		m_error.overwrite = true;
  b6e:	81 e0       	ldi	r24, 0x01	; 1
- b70:	80 93 bb 03 	sts	0x03BB, r24
+ b70:	80 93 c9 03 	sts	0x03C9, r24
 	uint8_t currentID;
 	queue <uint8_t, AX_ERROR_BUF> m_error;
 
 	sensor_t()
 	{
 		m_error.overwrite = true;
- b74:	80 93 55 03 	sts	0x0355, r24
+ b74:	80 93 63 03 	sts	0x0363, r24
 		currentID = 100;
  b78:	84 e6       	ldi	r24, 0x64	; 100
- b7a:	80 93 f0 02 	sts	0x02F0, r24
+ b7a:	80 93 fe 02 	sts	0x02FE, r24
 		pc<<"ahoj"<<endl;
 		//TODO: Program
 	}
