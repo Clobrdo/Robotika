@@ -18,15 +18,30 @@
 	*polož			()
 	
 */
-
+int kostka()
+{
+	int kostka_h;
+				//Dušanùv algoritmus na náhodnost kostky
+	return kostka_h;	
+}
+bool kontrola_figurek()
+{
+						//kontrolovací algoritmus
+	bool kontrola = true;	//true nebo false, podle toho, jestli jsou figurky na místì
+	return kontrola;
+}
 void run()
 {
-	//nastav_rychlost();
-	for (;;)
+	zakladni_pozice();
+	motor[4].position(560);
+	nastav_rychlost();
+	while(true)
 	{
-		zakladni_pozice();		
-		motor[4].position(560);
-		cekej();
+		if(buttons.isStart())
+		{
+			int posun_h = kostka();
+		}
+		_delay_ms(5000);
 		pc<<"ahoj"<<endl;
 		//TODO: Program
 	}
