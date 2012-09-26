@@ -29,14 +29,17 @@ bool kontrola_figurek()
 
 void run()
 {
-	nastav_rychlost();
+	//nastav_rychlost();
 
 	for(;;){
-		for (i2=0; i2!=32; i2++)
+		
+		kostka();
+		pc<<kostka_h<<endl;
+		/*for (i2=0; i2!=32; i2++)
 		{
 			pozice(i2);
 			cekej();
-		}
+		}*/
 		
 	}
 	
