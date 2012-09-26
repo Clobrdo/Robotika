@@ -44,8 +44,10 @@ void run()
 	{
 		if(buttons.isStart())
 		{
-			//int posun_h = kostka();
+			int posun_h = kostka();
+			pc<<posun_h<<endl;
 		}
+		
 	_delay_ms(5000);
 	pc<<"ahoj"<<endl;
 	//TODO: Program

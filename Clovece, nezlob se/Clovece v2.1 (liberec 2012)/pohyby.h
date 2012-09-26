@@ -47,16 +47,14 @@ bool hodnoty_pole[5][8] =
 {false,	false,	false,	false,	false,	false,	false,	false	}	//5
 };
 
-void kostka()
+int kostka()
 {
-	do 
-	{
-	}while(buttons.isStart()==true);
-	do 
+	while (buttons.isStart())
 	{
 		kostka_h++;
-		if(kostka_h!=7) {kostka_h=1;}
-	} while (buttons.isStart()==true);
+		if(kostka_h>6) {kostka_h=1;}
+	}
+	return kostka_h; 
 }
 
 void cekej()
