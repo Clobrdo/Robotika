@@ -49,17 +49,12 @@ bool hodnoty_pole[5][8] =
 
 int kostka()
 {
-	do 
-	{
-	} while (buttons.isStart()==false);
-	do 
+	while (buttons.isStart());
 	{
 		kostka_h++;
 		if (kostka_h==7)
-		{
-			kostka_h=1;
-		}
-	} while (buttons.isStart()==true);
+		kostka_h=1;
+	}
 	return kostka_h; 
 }
 
