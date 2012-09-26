@@ -19,7 +19,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 000006df  00000000  00000000  0000526b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000008c7  00000000  00000000  0000594a  2**0
+  8 .debug_line   000008c9  00000000  00000000  0000594a  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  000004dc  00000000  00000000  00006214  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -534,9 +534,9 @@ uint8_t kostka()
 	while (buttons.isStart());
  4c4:	80 9b       	sbis	0x10, 0	; 16
  4c6:	fe cf       	rjmp	.-4      	; 0x4c4 <_Z6kostkav>
-		kostka_h++;
-		if (kostka_h==7)
-		kostka_h=1;
+		{
+			kostka_h=1;
+		}
 	}
 	return kostka_h; 
 }

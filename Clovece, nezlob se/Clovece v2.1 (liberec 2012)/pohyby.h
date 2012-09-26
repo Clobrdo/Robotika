@@ -54,7 +54,9 @@ uint8_t kostka()
 	{
 		kostka_h++;
 		if (kostka_h==7)
-		kostka_h=1;
+		{
+			kostka_h=1;
+		}
 	}
 	return kostka_h; 
 }
