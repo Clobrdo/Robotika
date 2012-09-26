@@ -48,8 +48,8 @@ void run()
 			pc<<posun_h<<endl;
 		}
 		
-	_delay_ms(5000);
-	pc<<"ahoj"<<endl;
+	
+	
 	//TODO: Program
 	}
 }

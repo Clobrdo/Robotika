@@ -13,7 +13,7 @@
 
 uint8_t i=0;		//promnìná do smyèek
 uint8_t i2=0;		//-------||----------
-uint8_t kostka_h=0;
+
 
 const uint16_t hodnoty_pozice[7][33] PROGMEM =
 {
@@ -47,8 +47,9 @@ bool hodnoty_pole[5][8] =
 {false,	false,	false,	false,	false,	false,	false,	false	}	//5
 };
 
-int kostka()
+uint8_t kostka()
 {
+	uint8_t kostka_h = 0;
 	while (buttons.isStart());
 	{
 		kostka_h++;
