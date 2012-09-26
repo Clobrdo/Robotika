@@ -531,7 +531,7 @@ void wait(const uint32_t &time)
 uint8_t kostka()
 {
 	uint8_t kostka_h = 0;
-	while (buttons.isStart());
+	while (buttons.isStart()==true);
  4c4:	80 9b       	sbis	0x10, 0	; 16
  4c6:	fe cf       	rjmp	.-4      	; 0x4c4 <_Z6kostkav>
 		{
