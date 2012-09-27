@@ -50,7 +50,7 @@ bool hodnoty_pole[5][8] =
 uint8_t kostka()
 {
 	uint8_t kostka_h = 0;
-	while (buttons.isStart());
+	while (buttons.isStart())
 	{
 		kostka_h++;
 		if (kostka_h==7)
