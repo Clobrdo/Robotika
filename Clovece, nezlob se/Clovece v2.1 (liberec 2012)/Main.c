@@ -29,6 +29,7 @@ bool kontrola_figurek()
 
 void run()
 {
+	inicializace();
 	//nastav_rychlost();
 
 	/*for(;;){
@@ -44,7 +45,7 @@ void run()
 	{
 		if(buttons.isStart())
 		{
-			int posun_h = kostka();
+			int posun_h = kostka;
 			pc<<posun_h<<endl;
 		}
 		

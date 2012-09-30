@@ -10,6 +10,7 @@
 #define	rychlost_motoru		250
 #define pocet_motoru		6
 #define	speed_koef			0,8
+#define kostka				((TCNT0 % 6)+1)
 
 uint8_t i=0;		//promnìná do smyèek
 uint8_t i2=0;		//-------||----------
@@ -47,19 +48,17 @@ bool hodnoty_pole[5][8] =
 {false,	false,	false,	false,	false,	false,	false,	false	}	//5
 };
 
-uint8_t kostka()
+void inicializace()
 {
-	uint8_t kostka_h = 0;
-	while (buttons.isStart())
-	{
-		kostka_h++;
-		if (kostka_h==7)
-		{
-			kostka_h=1;
-		}
-	}
-	return kostka_h; 
+	TCCR0 |= (1 << CS00);
 }
+
+/*uint8_t kostka()
+{
+	uint8_t kostka_h = ((TCNT0 % 6)+1);
+	
+	return kostka_h; 
+}*/
 
 void cekej()
 {
@@ -103,4 +102,5 @@ void uchop()
 {
 	
 }
+
 
