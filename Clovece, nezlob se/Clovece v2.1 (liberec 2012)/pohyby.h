@@ -15,7 +15,6 @@
 uint8_t i=0;		//promnìná do smyèek
 uint8_t i2=0;		//-------||----------
 
-
 const uint16_t hodnoty_pozice[7][33] PROGMEM =
 {
 //0		1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16		17		18		19		20		21		22		23		24		25		26		27		28		29		30		31		32
@@ -26,6 +25,13 @@ const uint16_t hodnoty_pozice[7][33] PROGMEM =
 {512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
 {512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
 {512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512,	512	},
+};
+
+const uint16_t hodnoty_pohyb[3][2] PROGMEM =
+{
+{512,	512};
+{512,	512};
+{512,	512}
 };
 
 const uint16_t hodnoty_rychlost[7][1] PROGMEM =
@@ -53,13 +59,6 @@ void inicializace()
 	TCCR0 |= (1 << CS00);
 }
 
-/*uint8_t kostka()
-{
-	uint8_t kostka_h = ((TCNT0 % 6)+1);
-	
-	return kostka_h; 
-}*/
-
 void cekej()
 {
 i=1;
@@ -70,8 +69,6 @@ _delay_ms(150);
 		//else {i++;}
 	} while (i!=pocet_motoru);
 }
-
-//void nastav_rychlost_m()
 
 void nastav_rychlost()
 {
@@ -103,4 +100,27 @@ void uchop()
 	
 }
 
-
+void aktualizuj_pozice()
+{
+	uint8_t temp_pozice = 0;
+	for (i=0; i!=5; i++)
+	{
+		temp_pozice  = pc.get();
+		pc<<temp_pozice<<endl;
+		for (i2=0; i2!=8; i2++)
+		{
+			hodnoty_pole[i][i2] = ((temp_pozice & (1 << i2)) != 0);
+			pc<<((temp_pozice & (1 << i2)) != 0)<<"_";
+		}
+		pc<<"tabulka:"<<endl;
+	}
+	
+	for (i=0; i!=5; i++)
+	{
+		for (i2=0; i2!=8; i2++)
+		{
+			pc<<hodnoty_pole[i][i2];
+		}
+		pc<endl;
+	}
+}

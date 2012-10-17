@@ -32,14 +32,10 @@ void run()
 	inicializace();
 	//nastav_rychlost();
 
-	/*for(;;){
-		for (i2=0; i2!=32; i2++)
-		{
-			pozice(i2);
-			cekej();
-		}
+	for(;;){
+		aktualizuj_pozice();
 		
-	}*/
+	}
 	
 	while(true)
 	{

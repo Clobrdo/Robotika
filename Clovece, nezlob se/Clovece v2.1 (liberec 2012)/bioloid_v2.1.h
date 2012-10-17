@@ -1249,6 +1249,7 @@ ISR(USART0_RX_vect)
 		return;
 	bus.data_in(ch);
 }
+
 ISR(USART0_UDRE_vect)
 {
 	uint8_t data;
