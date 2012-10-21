@@ -20,33 +20,38 @@
 	
 */
 
-bool kontrola_figurek()
-{
-						//kontrolovací algoritmus
-	bool kontrola = true;	//true nebo false, podle toho, jestli jsou figurky na místì
-	return kontrola;
-}
-
 void run()
 {
+	uint8_t kostka_hod;
 	inicializace();
 	//nastav_rychlost();
 
-	for(;;){
+	/*for(;;){
 		aktualizuj_pozice();
 		
-	}
+	}*/
 	
 	while(true)
 	{
+		aktualizuj_pozice();
 		if(buttons.isStart())
 		{
-			int posun_h = kostka;
-			pc<<posun_h<<endl;
+			kostka_hod = kostka;
+			if(CHECKPOLE());	//nìco je v poli
+			{
+				
+			}
+			else()	//nic není v poli
+			{
+				if(kostka_hod==6)
+				{
+					if(hodnoty_pole[][])	//je obsazeno
+					{
+						vyhod(8);
+					}
+					nasad();						
+				}
+			}	
 		}
-		
-	
-	
-	//TODO: Program
 	}
 }

@@ -61,8 +61,8 @@ void inicializace()
 
 void cekej()
 {
-i=1;
-_delay_ms(150);
+	i=1;
+	_delay_ms(150);
 	do 
 	{
 		if (motor[i].present_speed()<1)	{i++;}
@@ -100,6 +100,41 @@ void uchop()
 	
 }
 
+void poloz()
+{
+	
+}
+
+void vyhod(uint16_t pos)
+{
+	pozice(pos);
+	uchop();
+	if(hodnoty_pole[][])	//kde ma hrac volno v domecku
+	{
+		pozice();
+		poloz();
+	}
+	else if(hodnoty_pole[][])
+	{
+		pozice();
+		poloz();
+	}
+}
+void nasad()
+{
+	if(hodnoty_pole[][])
+	{
+		pozice();
+	}
+	else
+	{
+		pozice();
+	}
+	uchop();
+	pozice(8);
+	poloz();
+	
+}
 void aktualizuj_pozice()
 {
 	uint8_t temp_pozice = 0;
