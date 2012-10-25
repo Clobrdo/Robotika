@@ -7,15 +7,15 @@
 
 #include <util/delay.h>
 
-#define	rychlost_motoru		250
-#define pocet_motoru		6
-#define	speed_koef			0,8
-#define kostka				((TCNT0 % 6)+1)
-#define SETBIT(ADDRESS,BIT) (ADDRESS |= (1<<BIT)) 
-#define CHECKBIT(ADDRESS,BIT) ((ADDRESS & (1<<BIT))!=0) 
-#define CLEARBIT(ADDRESS,BIT) (ADDRESS &= ~(1<<BIT)) 
-#define CHECKPOLICKO(BIT)	CHECKBIT(hraci_pole,BIT)
-#define DOMECEK(BIT)	CHECKBIT(promena_DOMECEK,BIT)
+#define	rychlost_motoru			250
+#define pocet_motoru			6
+#define	speed_koef				0,8
+#define kostka					((TCNT0 % 6)+1)
+#define SETBIT(ADDRESS,BIT)		(ADDRESS |= (1<<BIT)) 
+#define CHECKBIT(ADDRESS,BIT)	((ADDRESS & (1<<BIT))!=0) 
+#define CLEARBIT(ADDRESS,BIT)	(ADDRESS &= ~(1<<BIT)) 
+#define CHECKPOLICKO(BIT)		CHECKBIT(hraci_pole,BIT)
+#define DOMECEK(BIT)			CHECKBIT(promena_DOMECEK,BIT)
 	
 
 uint8_t i=0;		//promnìná do smyèek
@@ -149,7 +149,7 @@ void zapis_domecek(uint8_t BIT,bool VAL)
 	else CLEARBIT(promena_DOMECEK, BIT);
 }
 
-void aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
+bool aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
 {
 	uint8_t temp_pozice = 0;
 	for (i=0; i!=4; i++)
@@ -182,4 +182,7 @@ void aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodno
 		pc<<CHECKBIT(hraci_pole,i);
 	}
 	pc<endl;
+	//______________________-=kontrola=-_______________
+	
+		
 }
