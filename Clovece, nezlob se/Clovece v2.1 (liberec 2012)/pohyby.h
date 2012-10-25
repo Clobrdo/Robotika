@@ -15,10 +15,13 @@
 #define CHECKBIT(ADDRESS,BIT) ((ADDRESS & (1<<BIT))!=0) 
 #define CLEARBIT(ADDRESS,BIT) (ADDRESS &= ~(1<<BIT)) 
 #define CHECKPOLICKO(BIT)	CHECKBIT(hraci_pole,BIT)
+#define DOMECEK(BIT)	CHECKBIT(promena_DOMECEK,BIT)
+	
 
 uint8_t i=0;		//promnìná do smyèek
 uint8_t i2=0;		//-------||----------
-uint32_t hraci_pole=0;
+uint32_t hraci_pole=0;			//cudliky na poli
+uint8_t promena_DOMECEK=0;		//cudliky v domecku
 
 const uint16_t hodoty_motoru[pocet_motoru+1][33] PROGMEM =
 {
@@ -50,14 +53,9 @@ const uint16_t hodnoty_rychlost[7][1] PROGMEM =
 {rychlost_motoru}	//7
 };
 
-bool domecek[1][8]
+uint8_t curr_pos[1][4]
 {
-{false,	false,	false,	false,	false,	false,	false,	false	}	//hodnoty domeckù
-};
-
-uint8_t ak_pozice[1][4]
-{
-{0,1,8,9}	
+{0,	1,	8,	9	}	
 };
 
 void inicializace()
@@ -117,15 +115,15 @@ void zavri()		//zavrit celisti
 void nasad_robot()
 {
 	otevri();
-	if(domecek[0])
+	if(DOMECEK(0))
 	{
 		//pozice();
-		ak_pozice[0]=8;
+		curr_pos[0][0]=8;
 	}		
 	else
 	{
 		//pozice();
-		ak_pozice[1]=8;
+		curr_pos[0][1]=8;
 	}	
 	zavri();
 	pozice(8);
@@ -142,7 +140,16 @@ bool check_hraci_pole()
 	return vysledek;
 }
 
-void aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v ak_pozice[] odpovídají skuteènosti
+void zapis_domecek(uint8_t BIT,bool VAL)
+{
+	if (VAL)
+	{
+		SETBIT(promena_DOMECEK, BIT);
+	}
+	else CLEARBIT(promena_DOMECEK, BIT);
+}
+
+void aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
 {
 	uint8_t temp_pozice = 0;
 	for (i=0; i!=4; i++)
@@ -164,10 +171,10 @@ void aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodno
 		pc<<temp_pozice<<endl;
 		for (i2=0; i2!=8; i2++)
 		{
-			domecek[i][i2] = ((temp_pozice & (1 << i2)) != 0);
+			zapis_domecek(i2,((temp_pozice & (1 << i2)) != 0));
 			pc<<((temp_pozice & (1 << i2)) != 0)<<"_";
 		}
-		pc<<domecek<<endl<<endl;
+		pc<<promena_DOMECEK<<endl<<endl;
 	}
 	
 	for (i=0; i!=32; i++)

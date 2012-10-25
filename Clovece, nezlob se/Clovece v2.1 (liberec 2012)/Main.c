@@ -34,20 +34,20 @@ void run()
 			if(check_hraci_pole())	//neco je v poli
 			{
 				otevri();
-				if(!domecek[0])
+				if(!DOMECEK(0))
 				{
-					pozice(ak_pozice[0]);
-					ak_pozice[0] += kostka_hod;
+					pozice(curr_pos[0][0]);
+					curr_pos[0][0] += kostka_hod;
 					zavri();
-					pozice(ak_pozice[0]);
+					pozice(curr_pos[0][0]);
 					otevri();
 				}
-				else if(!domecek[1])
+				else if(!DOMECEK(1))
 				{
-					pozice(ak_pozice[1]);
-					ak_pozice[1] += kostka_hod;
+					pozice(curr_pos[0][1]);
+					curr_pos[0][1] += kostka_hod;
 					zavri();
-					pozice(ak_pozice[1]);
+					pozice(curr_pos[0][1]);
 					otevri();
 				}						
 			}
@@ -60,7 +60,7 @@ void run()
 					{
 						pozice(8);
 						otevri();
-						if(domecek[8])
+						if(DOMECEK(8))
 						{
 							//pozice();	//nevim jaka je to pozice
 						}

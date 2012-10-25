@@ -3,7 +3,10 @@
 #################
 
 debug/
-
+*.elf
+*.map
+*.hex
+*.lss
 
 *.pydevproject
 .project
