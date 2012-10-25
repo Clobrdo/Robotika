@@ -55,6 +55,11 @@ bool domecek[1][8]
 {false,	false,	false,	false,	false,	false,	false,	false	}	//hodnoty domeckù
 };
 
+uint8_t ak_pozice[1][4]
+{
+{0,1,8,9}	
+};
+
 void inicializace()
 {
 	TCCR0 |= (1 << CS00);
@@ -95,33 +100,36 @@ void pozice(uint8_t c_pozice)
 	}
 }
 
-void uchop()		//otevrit celisti
+void otevri()		//otevrit celisti
 {
 	motor[6].position(486);
 	motor[7].position(548);
 	cekej();
 }
 
-void povol()		//zavrit celisti
+void zavri()		//zavrit celisti
 {
 	motor[6].position(520);
 	motor[7].position(504);
 	cekej();
 }
 
-void zvedni()
-{
-	
-}
-
-void poloz()
-{
-
-}
-
 void nasad_robot()
 {
-	
+	otevri();
+	if(domecek[0])
+	{
+		//pozice();
+		ak_pozice[0]=8;
+	}		
+	else
+	{
+		//pozice();
+		ak_pozice[1]=8;
+	}	
+	zavri();
+	pozice(8);
+	otevri();
 }
 
 bool check_hraci_pole()
@@ -134,7 +142,7 @@ bool check_hraci_pole()
 	return vysledek;
 }
 
-void aktualizuj_hraci_pole()
+void aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v ak_pozice[] odpovídají skuteènosti
 {
 	uint8_t temp_pozice = 0;
 	for (i=0; i!=4; i++)
