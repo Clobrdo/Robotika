@@ -2,7 +2,7 @@
 ## Eclipse
 #################
 
-.debug/
+debug/
 
 
 *.pydevproject
