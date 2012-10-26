@@ -149,7 +149,7 @@ void zapis_domecek(uint8_t BIT,bool VAL)
 	else CLEARBIT(promena_DOMECEK, BIT);
 }
 
-bool aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
+uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
 {
 	uint8_t temp_pozice = 0;
 	for (i=0; i!=4; i++)
@@ -183,6 +183,25 @@ bool aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodno
 	}
 	pc<endl;
 	//______________________-=kontrola=-_______________
-	
+	uint64_t hraci_pole_kontrola = 0;
+	uint64_t curr_pos_kontrola = 0;
+	uint8_t cislo_policka_chyba = 0;
 		
-}
+	hraci_pole_kontrola = (hraci_pole+(promena_DOMECEK*4294967296));	
+	for (i=0; i!=4; i++)
+	{
+		SETBIT(curr_pos_kontrola,curr_pos[0][i]);
+	}
+	
+	i=0;
+	while ((CHECKBIT(curr_pos_kontrola,i)==CHECKBIT(hraci_pole_kontrola,i)) && i!=40)
+	{
+		i++;
+	}	
+	if (i!=40)
+	{
+		cislo_policka_chyba=i;
+	}
+	else cislo_policka_chyba = 0;
+	return cislo_policka_chyba;	
+}		
