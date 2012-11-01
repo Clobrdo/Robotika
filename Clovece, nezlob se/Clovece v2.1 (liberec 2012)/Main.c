@@ -40,6 +40,7 @@ void run()
 					curr_pos[0][0] += kostka_hod;
 					zavri();
 					pozice(curr_pos[0][0]);
+					cekej();
 					otevri();
 				}
 				else if(!DOMECEK(1))
@@ -48,6 +49,7 @@ void run()
 					curr_pos[0][1] += kostka_hod;
 					zavri();
 					pozice(curr_pos[0][1]);
+					cekej();
 					otevri();
 				}						
 			}
@@ -58,19 +60,28 @@ void run()
 				{
 					if(CHECKPOLICKO(8))	//je obsazeno
 					{
+						otevri();
 						pozice(8);
+						cekej();
+						zavri();
+						pozice(1);
+						cekej();
 						otevri();
 						if(DOMECEK(8))
 						{
-							//pozice();	//nevim jaka je to pozice
+							pozice(8);		
 						}
 						else
 						{
-							//pozice();
+							pozice(7);
 						}
+						cekej();
 						zavri();
+						pozice(8);
+						cekej();
+						otevri();
 					}
-					nasad_robot();
+					//nasad_robot();
 				}
 			}
 		}
