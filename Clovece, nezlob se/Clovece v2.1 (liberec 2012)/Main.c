@@ -2,11 +2,11 @@
  * Pohyby.c
  *
  */
-#include "bioloid_v2.1.h"
+#include "bioloid_v2.2.h"
 #include "pohyby.h"
 #include <avr/delay.h>
 
-/*  P??kazy knihovny:
+/*  Prikazy knihovny:
 
 	zakladni_pozice		()
 	nastav_rychlost		()
@@ -21,66 +21,98 @@
 
 void run()
 {
+	povol();
+while(!buttons.isStart())
+{}
+	nastav_torque();
 	uint8_t kostka_hod;
+			pc<<"jedu"<<endl;
 	inicializace();
+			pc<<"kostka nastavena"<<endl;
 	nastav_rychlost();	
+			pc<<"rychlost nastavena"<<endl;
+	zakladni_pozice();
+			pc<<"zakladni pozice"<<endl;
+	cekej();
+			pc<<"cekej ..."<<endl;
+	pc<<aktualizuj_hraci_pole()<<endl;
+			pc<<"aktualizuj pole"<<endl;
+	while(1)
+	{
+		kostka_hod = kostka;
+		pc<<kostka_hod+4<<endl;
+		naber(kostka_hod+4);
+		kostka_hod = kostka;
+		pc<<kostka_hod+4<<endl;
+		poloz(kostka_hod+4);
+	}		
 	
 	while(true)
 	{
-		aktualizuj_hraci_pole();
+		
+		//aktualizuj_hraci_pole();
 		if(buttons.isStart())
 		{
+			pc<<"start"<<endl;
 			kostka_hod = kostka;
+			pc<<kostka_hod<<endl;
 			if(check_hraci_pole())	//neco je v poli
 			{
 				otevri();
 				if(!DOMECEK(0))
 				{
-					pozice(curr_pos[0][0]);
-					curr_pos[0][0] += kostka_hod;
+					PoziceM1(curr_pos[0]);
+					curr_pos[0] += kostka_hod;
 					zavri();
-					pozice(curr_pos[0][0]);
-					cekej();
+					PoziceM1(curr_pos[0]);
+					//cekej();
 					otevri();
 				}
 				else if(!DOMECEK(1))
 				{
-					pozice(curr_pos[0][1]);
-					curr_pos[0][1] += kostka_hod;
+					PoziceM1(curr_pos[1]);
+					curr_pos[1] += kostka_hod;
 					zavri();
-					pozice(curr_pos[0][1]);
-					cekej();
+					PoziceM1(curr_pos[1]);
+					//cekej();
 					otevri();
 				}						
 			}
 					
 			else	//nic neni v poli
 			{
+				pc<<"nic neni v poli"<<endl;
 				if(kostka_hod==6)
 				{
-					if(CHECKPOLICKO(8))	//je obsazeno
-					{
+					pc<<"kostka je 6"<<endl;
+					//if(CHECKPOLICKO(8))	//je obsazeno
+					//{
+						
 						otevri();
-						pozice(8);
-						cekej();
+						_delay_ms(1000);
+						//cekej();
+						naber(1);
 						zavri();
-						pozice(1);
 						cekej();
+						zakladni_pozice();
+						cekej();
+						naber(10);
+						//cekej();
 						otevri();
-						if(DOMECEK(8))
+						cekej();
+						/*if(DOMECEK(8))
 						{
-							pozice(8);		
+							PoziceM1(8);		
 						}
 						else
 						{
-							pozice(7);
-						}
-						cekej();
+							PoziceM1(7);
+						}*/
 						zavri();
-						pozice(8);
-						cekej();
+						PoziceM1(8);
+						//cekej();
 						otevri();
-					}
+					//}
 					//nasad_robot();
 				}
 			}

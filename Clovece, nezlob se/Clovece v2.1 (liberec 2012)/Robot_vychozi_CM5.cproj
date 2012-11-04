@@ -88,6 +88,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bioloid_v2.2.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Main.c">
       <SubType>compile</SubType>
     </Compile>

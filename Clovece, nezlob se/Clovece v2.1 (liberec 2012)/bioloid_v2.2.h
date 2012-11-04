@@ -1249,7 +1249,6 @@ ISR(USART0_RX_vect)
 		return;
 	bus.data_in(ch);
 }
-
 ISR(USART0_UDRE_vect)
 {
 	uint8_t data;
@@ -1479,13 +1478,14 @@ public:
 		m_error.push(bus.readWord(currentID, P_PRESENT_POSITION_L, pos));
 		return pos;
 	}
-	//__________________________________________________________________________________;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;**************************************************
-	uint16_t present_speed()
+	//_________________________________________________________________________________________________________
+	uint8_t present_speed()
 	{
-		uint16_t sped;
-		m_error.push(bus.readWord(currentID, P_PRESENT_SPEED_L, sped));
+		uint8_t sped;
+		m_error.push(bus.readByte(currentID, P_PRESENT_SPEED_L, sped));
 		return sped;
 	}
+	
 }; motor_t motor;
 
 class sensor_t
