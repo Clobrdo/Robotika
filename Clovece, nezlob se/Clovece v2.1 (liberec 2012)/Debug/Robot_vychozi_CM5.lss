@@ -3104,7 +3104,7 @@ void pohyb_na_bod2(float Xt, float Yt)
     11d2:	8d 8b       	std	Y+21, r24	; 0x15
     11d4:	9e 8b       	std	Y+22, r25	; 0x16
 	
-	pozice_motor1=(((M_PI_2+a3)*180/M_PI)*3.4133333);
+	pozice_motor1=((((M_PI/3)+a3)*180/M_PI)*3.4133333);
     11d6:	a1 01       	movw	r20, r2
     11d8:	3d 85       	ldd	r19, Y+13	; 0x0d
     11da:	2e 85       	ldd	r18, Y+14	; 0x0e
@@ -3114,9 +3114,9 @@ void pohyb_na_bod2(float Xt, float Yt)
     11e2:	b2 2f       	mov	r27, r18
     11e4:	bc 01       	movw	r22, r24
     11e6:	cd 01       	movw	r24, r26
-    11e8:	2b ed       	ldi	r18, 0xDB	; 219
-    11ea:	3f e0       	ldi	r19, 0x0F	; 15
-    11ec:	49 ec       	ldi	r20, 0xC9	; 201
+    11e8:	22 e9       	ldi	r18, 0x92	; 146
+    11ea:	3a e0       	ldi	r19, 0x0A	; 10
+    11ec:	46 e8       	ldi	r20, 0x86	; 134
     11ee:	5f e3       	ldi	r21, 0x3F	; 63
     11f0:	0e 94 ff 10 	call	0x21fe	; 0x21fe <__addsf3>
     11f4:	20 e0       	ldi	r18, 0x00	; 0
@@ -3143,7 +3143,7 @@ void pohyb_na_bod2(float Xt, float Yt)
     1226:	9a 85       	ldd	r25, Y+10	; 0x0a
     1228:	98 8f       	std	Y+24, r25	; 0x18
     122a:	8f 8b       	std	Y+23, r24	; 0x17
-	pozice_motor2=(((M_PI_2+a4)*180/M_PI)*3.4133333);
+	pozice_motor2=((((M_PI/6)+a4)*180/M_PI)*3.4133333);
     122c:	5f 85       	ldd	r21, Y+15	; 0x0f
     122e:	48 89       	ldd	r20, Y+16	; 0x10
     1230:	39 89       	ldd	r19, Y+17	; 0x11
@@ -3154,9 +3154,9 @@ void pohyb_na_bod2(float Xt, float Yt)
     123a:	b2 2f       	mov	r27, r18
     123c:	bc 01       	movw	r22, r24
     123e:	cd 01       	movw	r24, r26
-    1240:	2b ed       	ldi	r18, 0xDB	; 219
-    1242:	3f e0       	ldi	r19, 0x0F	; 15
-    1244:	49 ec       	ldi	r20, 0xC9	; 201
+    1240:	22 e9       	ldi	r18, 0x92	; 146
+    1242:	3a e0       	ldi	r19, 0x0A	; 10
+    1244:	46 e0       	ldi	r20, 0x06	; 6
     1246:	5f e3       	ldi	r21, 0x3F	; 63
     1248:	0e 94 ff 10 	call	0x21fe	; 0x21fe <__addsf3>
     124c:	20 e0       	ldi	r18, 0x00	; 0
@@ -3179,7 +3179,7 @@ void pohyb_na_bod2(float Xt, float Yt)
     1276:	5c 01       	movw	r10, r24
     1278:	7a 8f       	std	Y+26, r23	; 0x1a
     127a:	69 8f       	std	Y+25, r22	; 0x19
-	pozice_motor3=(((M_PI_2+a7)*180/M_PI)*3.4133333);
+	pozice_motor3=((((M_PI/6)+a7)*180/M_PI)*3.4133333);
     127c:	5b 89       	ldd	r21, Y+19	; 0x13
     127e:	4c 89       	ldd	r20, Y+20	; 0x14
     1280:	3d 89       	ldd	r19, Y+21	; 0x15
@@ -3190,9 +3190,9 @@ void pohyb_na_bod2(float Xt, float Yt)
     128a:	b2 2f       	mov	r27, r18
     128c:	bc 01       	movw	r22, r24
     128e:	cd 01       	movw	r24, r26
-    1290:	2b ed       	ldi	r18, 0xDB	; 219
-    1292:	3f e0       	ldi	r19, 0x0F	; 15
-    1294:	49 ec       	ldi	r20, 0xC9	; 201
+    1290:	22 e9       	ldi	r18, 0x92	; 146
+    1292:	3a e0       	ldi	r19, 0x0A	; 10
+    1294:	46 e0       	ldi	r20, 0x06	; 6
     1296:	5f e3       	ldi	r21, 0x3F	; 63
     1298:	0e 94 ff 10 	call	0x21fe	; 0x21fe <__addsf3>
     129c:	20 e0       	ldi	r18, 0x00	; 0
