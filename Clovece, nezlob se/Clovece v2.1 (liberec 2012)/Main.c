@@ -29,22 +29,54 @@ while(!buttons.isStart())
 			pc<<"jedu"<<endl;
 	inicializace();
 			pc<<"kostka nastavena"<<endl;
-	nastav_rychlost();	
+	nastav_rychlost(1);	
 			pc<<"rychlost nastavena"<<endl;
 	zakladni_pozice();
 			pc<<"zakladni pozice"<<endl;
 	cekej();
 			pc<<"cekej ..."<<endl;
-	pc<<aktualizuj_hraci_pole()<<endl;
+	//pc<<aktualizuj_hraci_pole()<<endl;
 			pc<<"aktualizuj pole"<<endl;
+			curr_pos[0]=1;
 	while(1)
 	{
-		kostka_hod = kostka;
-		pc<<kostka_hod+4<<endl;
-		naber(kostka_hod+4);
-		kostka_hod = kostka;
-		pc<<kostka_hod+4<<endl;
-		poloz(kostka_hod+4);
+		if(buttons.isStart())
+		{
+			while(buttons.isStart())
+			{
+			}
+				for(i=0; i!=pocet_motoru; i++)
+				{
+					motor[i+1].speed(1023);
+				}
+			
+			pohyb_na_bod2(100,50);
+			
+			/*for (;;)
+			{
+				for (int a=0;a!=280;a++)
+				{
+					pohyb_na_bod2(a,94);
+					pc<<a<<endl;
+					_delay_ms(20);				
+				}
+				
+				for (int a=280;a!=0;a--)
+				{
+					pohyb_na_bod2(a,94);
+					pc<<a<<endl;
+					_delay_ms(30);
+				}
+
+			}*/
+			
+			test_pozice();
+			kostka_hod = kostka;
+			pc<<kostka_hod;
+			naber(curr_pos[0]);
+			curr_pos[0]+=kostka_hod;
+			poloz(curr_pos[0]);
+		}
 	}		
 	
 	while(true)
