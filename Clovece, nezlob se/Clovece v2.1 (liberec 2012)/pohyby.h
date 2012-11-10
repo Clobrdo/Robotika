@@ -374,9 +374,9 @@ void pohyb_na_bod2(float Xt, float Yt)
 	a6=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow((B/2),2))/(2*delka_ramena2*delka_ramena3));
 	a7=a5+a6;
 	
-	pozice_motor1=((((M_PI/3)+a3)*180/M_PI)*3.4133333);
-	pozice_motor2=((((M_PI/3)+a4)*180/M_PI)*3.4133333);
-	pozice_motor3=((((M_PI/3)+a7)*180/M_PI)*3.4133333)-307;
+	pozice_motor1=(((M_PI_2+a3)*180/M_PI)*3.4133333);
+	pozice_motor2=(((M_PI_2+a4)*180/M_PI)*3.4133333);
+	pozice_motor3=(((M_PI_2+a7)*180/M_PI)*3.4133333);
 	
 	motor[2].position(pozice_motor1);
 	motor[3].position(pozice_motor2);
