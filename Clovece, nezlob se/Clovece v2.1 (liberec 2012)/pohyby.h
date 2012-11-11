@@ -18,6 +18,7 @@
 #define delka_ramena1			94
 #define delka_ramena2			94
 #define delka_ramena3			94
+#define M_PI_6					0.5235987755983
 	
 uint8_t i=0;		//promnìná do smyèek
 uint8_t i2=0;		//-------||----------
@@ -341,9 +342,83 @@ uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda ho
 	}
 	else cislo_policka_chyba = 0;
 	return cislo_policka_chyba;	
-}		
+}	
 
-void pohyb_na_bod2(float Xt, float Yt)
+void pohyb_na_bod2(float Xt, float Yt, float Zt)
+{
+	uint16_t pozice_motor0;
+	uint16_t pozice_motor1;
+	uint16_t pozice_motor2;
+	uint16_t pozice_motor3;
+	uint16_t B_term;
+	int a0_term;
+	int a1_term;
+	int a2_term;
+	int a3_term;
+	int a4_term;
+	int a5_term;
+	int a6_term;
+	int a7_term;
+	uint16_t B;
+	uint16_t B2;
+	uint16_t B_22;
+	double a0;
+	double a1;	
+	double a2;
+	double a3;	//uhel ramena
+	double a4;	//uhel loktu
+	double a5;	
+	double a6;
+	double a7;	//uhel zapesti
+	
+	B2=sqrt(pow(Xt,2)+pow(Zt,2));
+	B=sqrt(pow(B2,2)+pow(Yt,2));
+	B_22=pow((B/2),2);
+	a0=atan2(Zt,Xt);	
+	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+B_22)/(2*delka_ramena1*(B/2)));
+	a2=atan2(Yt,Xt);
+	a3=a1+a2;
+	a4=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-B_22)/(2*delka_ramena1*delka_ramena1));
+	a5=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow(delka_ramena1,2))/(2*delka_ramena2*delka_ramena2));
+	a6=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-B_22)/(2*delka_ramena2*delka_ramena3));
+	a7=a5+a6;
+	
+	pozice_motor0=(((((5*M_PI)/6)+a0)*180/M_PI)*3.4133333);
+	pozice_motor1=((((M_PI/6)+a3)*180/M_PI)*3.4133333);
+	pozice_motor2=((((a4+a5)-(M_PI/6))*180/M_PI)*3.4133333);
+	pozice_motor3=(((a7-(M_PI/6))*180/M_PI)*3.4133333);
+	
+	motor[1].position(pozice_motor0);
+	motor[2].position(pozice_motor1);
+	motor[3].position(pozice_motor2);
+	motor[4].position(pozice_motor3);
+	
+	
+	a0_term=a0*180/M_PI;
+	/*a1_term=a1*180/M_PI;
+	a2_term=a2*180/M_PI;
+	a3_term=a3*180/M_PI;
+	a4_term=a4*180/M_PI;
+	a5_term=a5*180/M_PI;
+	a6_term=a6*180/M_PI;
+	a7_term=a7*180/M_PI;
+	
+	pc<<"B "<<B<<endl;*/
+	pc<<"A0 "<<a0_term<<endl;/*
+	pc<<"A1 "<<a1_term<<endl;
+	pc<<"A2 "<<a2_term<<endl;
+	pc<<"A3 "<<a3_term<<endl;
+	pc<<"A4 "<<a4_term<<endl;
+	pc<<"A5 "<<a5_term<<endl;
+	pc<<"A6 "<<a6_term<<endl;
+	pc<<"A7 "<<a7_term<<endl;
+	
+	pc<<"Pozice 1:"<<pozice_motor1<<endl;
+	pc<<"Pozice 2:"<<pozice_motor2<<endl;
+	pc<<"Pozice 3:"<<pozice_motor3<<endl;*/
+}	
+
+/*void pohyb_na_bod2(float Xt, float Yt)
 {
 	uint16_t pozice_motor1;
 	uint16_t pozice_motor2;
@@ -357,6 +432,7 @@ void pohyb_na_bod2(float Xt, float Yt)
 	int a6_term;
 	int a7_term;
 	uint16_t B;
+	uint16_t B_22;
 	double a1;	
 	double a2;
 	double a3;	//uhel ramena
@@ -365,13 +441,14 @@ void pohyb_na_bod2(float Xt, float Yt)
 	double a6;
 	double a7;	//uhel zapesti
 	
-	B=sqrt(pow(Xt,2)+pow(Yt,2));	
-	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+pow((B/2),2))/(2*delka_ramena1*(B/2)));
+	B=sqrt(pow(Xt,2)+pow(Yt,2));
+	B_22=pow((B/2),2);	
+	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+B_22)/(2*delka_ramena1*(B/2)));
 	a2=atan2(Yt,Xt);
 	a3=a1+a2;
-	a4=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-pow((B/2),2))/(2*delka_ramena1*delka_ramena1));
+	a4=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-B_22)/(2*delka_ramena1*delka_ramena1));
 	a5=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow(delka_ramena1,2))/(2*delka_ramena2*delka_ramena2));
-	a6=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow((B/2),2))/(2*delka_ramena2*delka_ramena3));
+	a6=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-B_22)/(2*delka_ramena2*delka_ramena3));
 	a7=a5+a6;
 	
 	pozice_motor1=((((M_PI/6)+a3)*180/M_PI)*3.4133333);
@@ -382,7 +459,7 @@ void pohyb_na_bod2(float Xt, float Yt)
 	motor[3].position(pozice_motor2);
 	motor[4].position(pozice_motor3);
 	
-	/*a1_term=a1*180/M_PI;
+	a1_term=a1*180/M_PI;
 	a2_term=a2*180/M_PI;
 	a3_term=a3*180/M_PI;
 	a4_term=a4*180/M_PI;
@@ -401,8 +478,8 @@ void pohyb_na_bod2(float Xt, float Yt)
 	
 	pc<<"Pozice 1:"<<pozice_motor1<<endl;
 	pc<<"Pozice 2:"<<pozice_motor2<<endl;
-	pc<<"Pozice 3:"<<pozice_motor3<<endl;*/
-}
+	pc<<"Pozice 3:"<<pozice_motor3<<endl;
+}*/
 
 void pohyb_na_bod(float Xt, float Yt)
 {
@@ -425,7 +502,7 @@ void pohyb_na_bod(float Xt, float Yt)
 	gamma=alfa+beta;
 	delta=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-pow(B,2))/(2*delka_ramena1*delka_ramena2));
 	pozice_motor1=((((M_PI/3)+gamma)*180/M_PI)*3.4133333);
-	pozice_motor2=(((((M_PI/3)+delta-(M_PI/2))*180/M_PI))*3.4133333);	
+	pozice_motor2=(((((M_PI/3)+delta-(M_PI_2))*180/M_PI))*3.4133333);	
 	motor[2].position(pozice_motor1);
 	motor[3].position(pozice_motor2);
 	

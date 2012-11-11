@@ -50,24 +50,19 @@ while(!buttons.isStart())
 					motor[i+1].speed(1023);
 				}
 			
-			//pohyb_na_bod2(100,50);
+			//pohyb_na_bod2(100,100,100);
 			
 			for (;;)
 			{
-				for (int a=0;a!=360;a++)
+				//pohyb_na_bod2(50,50,50);
+				for (int a=0;360!=0;a++)
 				{
-					pohyb_na_bod2((100+25*cos(a*(M_PI/180))),(125+25*sin(a*(M_PI/180))));
-					//pc<<a<<endl;	
-					_delay_ms(3);			
-				}
-				
-				/*for (int a=359;a!=0;a--)
-				{
-					pohyb_na_bod2((100+50*cos(a*(M_PI/180))),(100+50*sin(a*(M_PI/180))));
+					pohyb_na_bod2((100+40*cos(a*(M_PI/180))),100,(40*sin(a*(M_PI/180))));
 					//pc<<a<<endl;
-					_delay_ms(10);
-				}*/
+					//_delay_ms(2);
+				}
 
+				
 			}
 			
 			test_pozice();
