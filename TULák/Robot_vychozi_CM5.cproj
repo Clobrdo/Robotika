@@ -88,7 +88,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="tulák.c">
+    <Compile Include="tulak.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
