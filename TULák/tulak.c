@@ -111,7 +111,6 @@ void krok4()
 }
 void prekazka()												//pøekonávání pøekážky
 {
-	int pomoc=0;
 	int r1;
 	int strana=1;
 	r1 = sensor[101].rightDistance();
@@ -131,7 +130,7 @@ void prekazka()												//pøekonávání pøekážky
 	krok4();
 	cekej();
 	
-	//again:
+
 	while(again)
 	{
 		while(r1>=252)												// když mìøí sensor 252 a víc tak mùže jet dál dokud nedojede ke konci pøekážky *2
@@ -143,7 +142,7 @@ void prekazka()												//pøekonávání pøekážky
 		{
 			dopredu();
 			wait(2000000);
-			pomoc=1;
+			again = false;
 			
 		}
 		if(r1<=150)													// když sensor zmìøí 150 a ménì, tak nemùže sjet, couvne a otoèí se doprava
@@ -173,12 +172,7 @@ void prekazka()												//pøekonávání pøekážky
 							strana=1;
 				break;
 			}					
-			//goto again;											// smyèka, dokud nenajde místo ke sjetí - NEBUDE SE POUŽÍVAT GOTO!!!
-		}
-		if(pomoc==1)
-		{
-			again = false;
-			stop();
+
 		}
 		stop();
 	
