@@ -114,6 +114,7 @@ void prekazka()												//pøekonávání pøekáky
 	int r1;
 	int strana=1;
 	r1 = sensor[101].rightDistance();
+	bool again = true;
 	stop();
 	krok1();
 	cekej();
@@ -129,52 +130,56 @@ void prekazka()												//pøekonávání pøekáky
 	krok4();
 	cekej();
 	
-	again:	while(r1>=252)												// kdy mìøí sensor 252 a víc tak mùe jet dál dokud nedojede ke konci pøekáky *2
-				{
-					r1 = sensor[101].rightDistance();
-					dopredu();
-				}
-				if(r1<252 && r1>150)										// *2, kdy sensor zmìøí 151-251 tak mùe bezpeènì sjet z pøekáky
-					{
-						dopredu();
-						wait(2000000);
-					}
-				if(r1<=150)													// kdy sensor zmìøí 150 a ménì, tak nemùe sjet, couvne a otoèí se doprava
-					{
-						dozadu();
-						wait(500000);
-						stop();
-						switch(strana)										
-						{
-							case '1':										// kdy bude jedna, tak se otoèí o 90° doprava
-										dozadu();
-										wait(500000);
-										stop();
-										doprava();
-										strana=2;
-							break;
-							case '2':	dozadu();							// kdy bude dva, tak se otoèí o 180°
-										wait(1000000);
-										stop();
-										doleva();
-										strana=3;
-							break;
-							case '3':	dozadu();							// kdy bude tøi, tak se otoèí o 90° doleva, tzn tam odkud dojel
-										wait(500000);
-										stop();
-										doleva();
-										strana=1;
-							break;
-						}					
-						goto again;											// smyèka, dokud nenajde místo ke sjetí
-					}
-	else
+	//again:
+	while(again)
+	{
+		while(r1>=252)												// kdy mìøí sensor 252 a víc tak mùe jet dál dokud nedojede ke konci pøekáky *2
 		{
+			r1 = sensor[101].rightDistance();
+			dopredu();
+		}
+		if(r1<252 && r1>150)										// *2, kdy sensor zmìøí 151-251 tak mùe bezpeènì sjet z pøekáky
+		{
+			dopredu();
+			wait(2000000);
+		}
+		if(r1<=150)													// kdy sensor zmìøí 150 a ménì, tak nemùe sjet, couvne a otoèí se doprava
+		{
+			dozadu();
+			wait(500000);
+			stop();
+			switch(strana)										
+			{
+				case '1':										// kdy bude jedna, tak se otoèí o 90° doprava
+							dozadu();
+							wait(500000);
+							stop();
+							doprava();
+							strana=2;
+				break;
+				case '2':	dozadu();							// kdy bude dva, tak se otoèí o 180°
+							wait(1000000);
+							stop();
+							doleva();
+							strana=3;
+				break;
+				case '3':	dozadu();							// kdy bude tøi, tak se otoèí o 90° doleva, tzn tam odkud dojel
+							wait(500000);
+							stop();
+							doleva();
+							strana=1;
+				break;
+			}					
+			//goto again;											// smyèka, dokud nenajde místo ke sjetí - NEBUDE SE POUÍVAT GOTO!!!
+		}
+		else
+		{
+			again = false;
 			stop();
 		}
-	stop();
+		stop();
 	
-	
+	}
 	
 	
 	
