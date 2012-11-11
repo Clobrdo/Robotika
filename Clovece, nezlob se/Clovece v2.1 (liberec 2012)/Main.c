@@ -50,25 +50,25 @@ while(!buttons.isStart())
 					motor[i+1].speed(1023);
 				}
 			
-			pohyb_na_bod2(100,50);
+			//pohyb_na_bod2(100,50);
 			
-			/*for (;;)
+			for (;;)
 			{
-				for (int a=0;a!=280;a++)
+				for (int a=0;a!=360;a++)
 				{
-					pohyb_na_bod2(a,94);
-					pc<<a<<endl;
-					_delay_ms(20);				
+					pohyb_na_bod2((100+25*cos(a*(M_PI/180))),(125+25*sin(a*(M_PI/180))));
+					//pc<<a<<endl;	
+					_delay_ms(3);			
 				}
 				
-				for (int a=280;a!=0;a--)
+				/*for (int a=359;a!=0;a--)
 				{
-					pohyb_na_bod2(a,94);
-					pc<<a<<endl;
-					_delay_ms(30);
-				}
+					pohyb_na_bod2((100+50*cos(a*(M_PI/180))),(100+50*sin(a*(M_PI/180))));
+					//pc<<a<<endl;
+					_delay_ms(10);
+				}*/
 
-			}*/
+			}
 			
 			test_pozice();
 			kostka_hod = kostka;

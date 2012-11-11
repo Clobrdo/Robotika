@@ -356,7 +356,7 @@ void pohyb_na_bod2(float Xt, float Yt)
 	int a5_term;
 	int a6_term;
 	int a7_term;
-	double B;
+	uint16_t B;
 	double a1;	
 	double a2;
 	double a3;	//uhel ramena
@@ -366,23 +366,23 @@ void pohyb_na_bod2(float Xt, float Yt)
 	double a7;	//uhel zapesti
 	
 	B=sqrt(pow(Xt,2)+pow(Yt,2));	
-	a1=acos(B/(4*delka_ramena1));
+	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+pow((B/2),2))/(2*delka_ramena1*(B/2)));
 	a2=atan2(Yt,Xt);
 	a3=a1+a2;
-	a4=(M_PI-(2*a1));
+	a4=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-pow((B/2),2))/(2*delka_ramena1*delka_ramena1));
 	a5=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow(delka_ramena1,2))/(2*delka_ramena2*delka_ramena2));
 	a6=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow((B/2),2))/(2*delka_ramena2*delka_ramena3));
 	a7=a5+a6;
 	
-	pozice_motor1=((((M_PI/3)+a3)*180/M_PI)*3.4133333);
-	pozice_motor2=((((M_PI/6)+a4)*180/M_PI)*3.4133333);
-	pozice_motor3=((((M_PI/6)+a7)*180/M_PI)*3.4133333);
+	pozice_motor1=((((M_PI/6)+a3)*180/M_PI)*3.4133333);
+	pozice_motor2=((((a4+a5)-(M_PI/6))*180/M_PI)*3.4133333);
+	pozice_motor3=(((a7-(M_PI/6))*180/M_PI)*3.4133333);
 	
 	motor[2].position(pozice_motor1);
 	motor[3].position(pozice_motor2);
 	motor[4].position(pozice_motor3);
 	
-	a1_term=a1*180/M_PI;
+	/*a1_term=a1*180/M_PI;
 	a2_term=a2*180/M_PI;
 	a3_term=a3*180/M_PI;
 	a4_term=a4*180/M_PI;
@@ -390,6 +390,7 @@ void pohyb_na_bod2(float Xt, float Yt)
 	a6_term=a6*180/M_PI;
 	a7_term=a7*180/M_PI;
 	
+	pc<<"B "<<B<<endl;
 	pc<<"A1 "<<a1_term<<endl;
 	pc<<"A2 "<<a2_term<<endl;
 	pc<<"A3 "<<a3_term<<endl;
@@ -400,8 +401,7 @@ void pohyb_na_bod2(float Xt, float Yt)
 	
 	pc<<"Pozice 1:"<<pozice_motor1<<endl;
 	pc<<"Pozice 2:"<<pozice_motor2<<endl;
-	pc<<"Pozice 3:"<<pozice_motor3<<endl;
-
+	pc<<"Pozice 3:"<<pozice_motor3<<endl;*/
 }
 
 void pohyb_na_bod(float Xt, float Yt)
@@ -413,7 +413,7 @@ void pohyb_na_bod(float Xt, float Yt)
 	int beta_term;
 	int gamma_term;
 	int delta_term;
-	double B;
+	int B;
 	double alfa;
 	double beta;
 	double gamma;
@@ -429,16 +429,16 @@ void pohyb_na_bod(float Xt, float Yt)
 	motor[2].position(pozice_motor1);
 	motor[3].position(pozice_motor2);
 	
-	/*B_term=B*1000;	
+	//B_term=B*1000;	
 	alfa_term=alfa*180/M_PI;
 	beta_term=beta*180/M_PI;
 	gamma_term=gamma*180/M_PI;
 	delta_term=delta*180/M_PI;
-	pc<<B_term<<endl;
+	pc<<B<<endl;
 	pc<<"alfa je:"<<alfa_term<<endl;
 	pc<<"beta je:"<<beta_term<<endl;
 	pc<<"gamma je:"<<gamma_term<<endl;
 	pc<<"delta je:"<<delta_term<<endl;
 	pc<<"pozice motoru1:"<<pozice_motor1<<endl;
-	pc<<"pozice motoru2:"<<pozice_motor2<<endl;*/
+	pc<<"pozice motoru2:"<<pozice_motor2<<endl;
 }
