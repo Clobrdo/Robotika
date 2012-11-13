@@ -18,6 +18,7 @@
 #define delka_ramena1			94
 #define delka_ramena2			94
 #define delka_ramena3			94
+#define delka_ramena4			50
 #define M_PI_6					0.5235987755983
 	
 uint8_t i=0;		//promnìná do smyèek
@@ -344,12 +345,13 @@ uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda ho
 	return cislo_policka_chyba;	
 }	
 
-void pohyb_na_bod2(float Xt, float Yt, float Zt)
+void pohyb_na_bod2(float Xt, float Yt, float Zt, float alfa)
 {
 	uint16_t pozice_motor0;
 	uint16_t pozice_motor1;
 	uint16_t pozice_motor2;
 	uint16_t pozice_motor3;
+	uint16_t pozice_motor4;
 	uint16_t B_term;
 	int a0_term;
 	int a1_term;
@@ -370,9 +372,12 @@ void pohyb_na_bod2(float Xt, float Yt, float Zt)
 	double a6;
 	double a7;	//uhel zapesti
 	
-	B2=sqrt(pow(Xt,2)+pow(Yt,2));
-	B=sqrt(pow(B2,2)+pow(Zt,2));
-	a0=atan2(Yt,Xt);	
+	alfa=(alfa*(M_PI/180));
+	B2=sqrt(pow(Xt,2)+pow(Yt,2));																	//prepocitani do 2d
+	Zt=Zt+(sin(alfa)*delka_ramena4);																//pricteni naklonu
+	B2=B2+(cos(alfa)*delka_ramena4);
+	B=sqrt(pow(B2,2)+pow(Zt,2));																	//delka spojnice
+	a0=atan2(Yt,Xt);																				//uhel spojnice
 	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+pow((B/2),2))/(2*delka_ramena1*(B/2)));
 	a2=atan2(Zt,Xt);
 	a3=a1+a2;

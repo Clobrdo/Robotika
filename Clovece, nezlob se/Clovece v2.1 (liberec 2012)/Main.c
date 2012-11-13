@@ -57,9 +57,15 @@ while(!buttons.isStart())
 				//pohyb_na_bod2(50,50,50);
 				for (int a=0;a!=360;a++)
 				{
-					pohyb_na_bod2((100+30*cos(a*(M_PI/180))),(100+30*sin(a*(M_PI/180))),(120+30*cos(a*(M_PI/180))));
+					pohyb_na_bod2(150,0,120,a);
 					//pc<<a<<endl;
-					//_delay_ms(10);
+					_delay_ms(10);
+				}
+				for (int a=360;a!=0;a--)
+				{
+					pohyb_na_bod2(150,0,120,a);
+					//pc<<a<<endl;
+					_delay_ms(10);
 				}
 			
 			}
