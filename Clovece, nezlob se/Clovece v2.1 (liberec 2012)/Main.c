@@ -55,14 +55,13 @@ while(!buttons.isStart())
 			for (;;)
 			{
 				//pohyb_na_bod2(50,50,50);
-				for (int a=0;360!=0;a++)
+				for (int a=0;a!=360;a++)
 				{
-					pohyb_na_bod2((100+40*cos(a*(M_PI/180))),100,(40*sin(a*(M_PI/180))));
+					pohyb_na_bod2((100+30*cos(a*(M_PI/180))),(100+30*sin(a*(M_PI/180))),(120+30*cos(a*(M_PI/180))));
 					//pc<<a<<endl;
-					//_delay_ms(2);
+					//_delay_ms(10);
 				}
-
-				
+			
 			}
 			
 			test_pozice();
