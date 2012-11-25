@@ -7,17 +7,17 @@
 
 #include <util/delay.h>
 
-#define	rychlost_motoru			200
+#define	rychlost_motoru			150
 #define pocet_motoru			7
 #define kostka					((TCNT0 % 6)+1)
 #define SETBIT(ADDRESS,BIT)		(ADDRESS |= (1<<BIT)) 
 #define CHECKBIT(ADDRESS,BIT)	((ADDRESS & (1<<BIT))!=0) 
 #define CLEARBIT(ADDRESS,BIT)	(ADDRESS &= ~(1<<BIT)) 
-#define CHECKPOLICKO(BIT)		CHECKBIT(hraci_pole,BIT)
+#define CHECKPOLICKO(BIT)		CHECKBIT(hraci_pole,BIT-1)
 #define DOMECEK(BIT)			CHECKBIT(promena_DOMECEK,BIT)
-#define delka_ramena1			94
+#define delka_ramena1			66
 #define delka_ramena2			94
-#define delka_ramena3			94
+#define delka_ramena3			66
 #define delka_ramena4			50
 #define M_PI_6					0.5235987755983
 	
@@ -37,32 +37,26 @@ const uint16_t VychoziPozice[7] PROGMEM =
 548
 };
 
-const uint16_t Motor_1[38] PROGMEM =
+const bool ledky[3][6]
 {
-//0		1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16		17		18		19		20		21		22		23		24		25		26		27		28		29		30		31		32		ch1		chC39	chR33	chR34	chC40
-512,	50,		14,		587,	554,	510,	468,	428,	1014,	972,	935,	892,	858,	819,	780,	743,	700,	659,	626,	589,	548,	510,	470,	434,	392,	352,	316,	283,	239,	202,	168,	126,	88,		198,	838,	168,	168,	788
+	{false, false, false, true, true, true},{false, true, true, false, false, true},{true, false, true, false, true, false},
 };
 
-const uint16_t PohybyOstaniMotory[4][15] PROGMEM =
+const uint16_t Motor_1[41] PROGMEM =
 {
-//Klasicke pozice		Nezasahnute pozice		Chlivek_1_R				Domecek_1_R				Domecek 1_R
+//0		1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16		17		18		19		20		21		22		23		24		25		26		27		28		29		30		31		32		chl_R1	chl_R2	dom_R1	domR2	chl_HR1	chl_HR2
+512,	168,	126,	88,		50,		14,		587,	554,	510,	468,	428,	1014,	972,	935,	892,	858,	819,	780,	743,	700,	659,	626,	589,	548,	510,	470,	434,	392,	352,	316,	283,	239,	202,	176,	220,	196,	199,	711,	711,	833,	791
+};
+
+const uint16_t PohybyOstaniMotory[4][18] PROGMEM =
+{
+//Klasicke pozice		Nezasahnute pozice		Chlivek					Domecek_dal			Domecek 2_R				Presun
 //NadF	ZacNakl	PolF	NadF	ZacNakl	NadF	NadCH	PolF	...		NadCH	PolF	NadF	NadCH	ZacN	NadF
-{351,	334,	290,	610,	610,	747,	241,	241,	241,	559,	559,	652,	605,	592,	415},
-{812,	808,	811,	530,	530,	161,	756,	756,	756,	467,	467,	244,	39, 	302,	447},
-{201,	270,	270,	689,	689,	760,	393,	393,	295,	202,	202,	346,	977,	411,	477},
-{182,	182,	183,	792,	792,	851,	181,	181,	254,	245,	245,	190,	688,	214,	170}
+{351,	334,	250,	769,	758,	800,	340,	260,	235,	500,	512,	540,	605,	592,	415,	516,	739,	726},
+{812,	808,	811,	167,	201,	201,	723,	765,	766,	548,	462,	403,	39, 	302,	447,	520,	167,	166},
+{201,	270,	275,	764,	760,	760,	330,	360,	365,	328,	279,	229,	977,	411,	477,	505,	866,	749},
+{182,	182,	187,	817,	780,	779,	203,	204,	210,	164,	214,	294,	688,	214,	170,	200,	166,	860}
 };
-
-/*
-const uint16_t PohybyOstaniMotory[4][15] PROGMEM =
-{
-//Klasicke pozice		Nezasahnute pozice		Chlivek 39, 40			Chlivek 33				Chlivek34
-//NadF	ZacNakl	NadF	NadF	ZacNakl	NadF	NadCH	PolF	...		NadCH	PolF	NadF	NadCH	ZacN	NadF
-{605,	460,	460,	605,	610,	540,	521,	500,	450,	605,	592,	180,	605,	592,	415},
-{39,	488,	448,	39,		530,	621,	459,	440,	440,	39,		302,	415,	39, 	302,	447},
-{977,	372,	320,	977,	689,	687,	343,	457,	457,	977,	411,	447,	977,	411,	477},
-{688,	170,	248,	688,	792,	715,	287,	180,	190,	688,	214,	170,	688,	214,	170}
-};*/
 
 const uint16_t hodnoty_rychlost[7] PROGMEM=
 {
@@ -77,7 +71,7 @@ rychlost_motoru		//7
 
 uint8_t curr_pos[4]
 {
- 0,	1,	8,	9		
+ 33,34,39,40		
 };
 
 void inicializace()
@@ -114,7 +108,6 @@ void nastav_torque()
 		motor[i+1].setTorque();
 	}
 	cekej();
-	
 }
 
 void test_pozice()
@@ -127,8 +120,6 @@ void test_pozice()
 	}
 	while(true)
 	{
-		
-		
 		char x;
 		x=pc.get();
 		switch(x)
@@ -151,7 +142,6 @@ void test_pozice()
 		}
 	}	
 }
-
 
 void nastav_rychlost(uint8_t delitel)	//cim vyssi je delitel tim pomaleji to jede
 {
@@ -185,29 +175,64 @@ void otevri()							//otevrit celisti
 
 void zavri()							//zavrit celisti
 {
-	motor[6].position(520);
-	motor[7].position(504);
+	bool poradne;
+	if (poradne==false)
+	{
+		motor[6].position(507);
+		motor[7].position(517);
+	}
+	else
+	{
+		motor[6].position(400);
+		motor[7].position(600);			
+	}
 	cekej();
 }
 
 void naberpoloz(uint8_t c_pozice, bool naber)
 {
 	PoziceM1(c_pozice);
-	if (c_pozice<8 && c_pozice>2)
+	if (c_pozice<11 && c_pozice>6)
 	{
+		if (motor[2].position()<512)
+		{
+			/*for(i2=15;i2!=18;i2++)
+			{
+				for(i=2;i!=6;i++)
+				{
+					motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
+				}
+				cekej();
+			}*/
+			nastav_rychlost(3);
+				for (i=5; i!=4; i--)
+				{
+					motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][3])));
+					cekej();
+				}
+				motor[2].position(pgm_read_word(&(PohybyOstaniMotory[0][3])));
+				motor[3].position(pgm_read_word(&(PohybyOstaniMotory[1][3])));
+				motor[4].position(pgm_read_word(&(PohybyOstaniMotory[2][3])));
+				cekej();
+			nastav_rychlost(1);			
+						
+		}
+
 		pc<<"nezasahnute"<<endl;
 		for (i2=3; i2!=6; i2++)
 		{
+			nastav_rychlost(i2-2);
 			for (i=2; i!=6; i++)
 			{
 				motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
 			}
-			cekej();
-			nastav_rychlost(i2-2);
-		}
+			cekej();			
+		}	
+		cekej();
 		otevri();
 		if (naber)
 		{
+			cekej();
 			zavri();
 		}
 		for (i=2; i!=6; i++)
@@ -216,20 +241,80 @@ void naberpoloz(uint8_t c_pozice, bool naber)
 		}
 		cekej();		
 	} 
-	else
+	
+	else if ((c_pozice>=33 && c_pozice<=34)||(c_pozice>=39 && c_pozice<=40))
 	{
-		for (i2=0; i2!=3; i2++)
+		pc<<"domecek"<<endl;
+		for (i2=6; i2!=9; i2++)
 		{
+			nastav_rychlost(i2-2);
 			for (i=2; i!=6; i++)
 			{
 				motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
 			}
 			cekej();
-			nastav_rychlost(i2+1);
 		}
+		cekej();
 		otevri();
 		if (naber)
 		{
+			cekej();
+			zavri();
+		}
+		for (i=2; i!=6; i++)
+		{
+			motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][6])));
+		}
+		cekej();
+		
+	}
+	
+	else if(c_pozice==35 || c_pozice==38)
+	{
+		for (i2=9; i2!=12; i2++)
+		{
+			nastav_rychlost(i2-2);
+			for (i=2; i!=6; i++)
+			{
+				motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
+			}
+			cekej();
+		}
+		cekej();
+		otevri();	
+		cekej();
+		//_________________________________________________________________________________________
+	}
+	
+	else
+	{		
+		if (motor[2].position()>512)
+		{
+			for(i2=17;i2!=14;i2--)
+			{
+				for(i=2;i!=6;i++)
+				{
+					motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
+				}
+				cekej();
+			}
+			cekej();
+		}
+			
+		for (i2=0; i2!=3; i2++)
+		{
+			nastav_rychlost(i2+1);
+			for (i=2; i!=6; i++)
+			{
+				motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
+			}
+			cekej();
+		}
+		cekej();
+		otevri();
+		if (naber)
+		{
+			cekej();
 			zavri();
 		}
 		for (i=2; i!=6; i++)
@@ -251,22 +336,31 @@ void poloz(uint8_t c_pozice)				//polozi figurku na pozici
 	naberpoloz(c_pozice, false);
 }
 
-void nasad_robot()
+void vyhod(uint8_t c_pozice, uint8_t curr_fig)
 {
-	otevri();
-	if(DOMECEK(0))
+	naber(c_pozice);
+	if(curr_fig<=1)
 	{
-		//PoziceM1();
-		curr_pos[0]=8;
-	}		
+		if(!DOMECEK(6))
+		{
+			poloz(39);
+		}
+		else
+		{
+			poloz(40);
+		}
+	}
 	else
 	{
-		//PoziceM1();
-		curr_pos[1]=8;
-	}	
-	zavri();
-	PoziceM1(8);
-	otevri();
+		if(!DOMECEK(0))
+		{
+			poloz(33);
+		}
+		else
+		{
+			poloz(34);
+		}
+	}
 }
 
 bool check_hraci_pole()
@@ -288,8 +382,38 @@ void zapis_domecek(uint8_t BIT,bool VAL)
 	else CLEARBIT(promena_DOMECEK, BIT);
 }
 
+void posun()
+{
+		for (i=0; i!=32; i++)
+		{
+			//pc<<CHECKBIT(hraci_pole,i);
+		}
+	bool bit=false;
+	for(i=0; i!=3; i++)
+	{
+		bit=CHECKBIT(hraci_pole,31);
+		hraci_pole/=2;
+		if (bit)
+		{
+			SETBIT(hraci_pole,31);	
+		} 
+		else
+		{
+			CLEARBIT(hraci_pole,31);
+		}
+	}
+	
+	pc<<endl<<endl;
+		for (i=0; i!=32; i++)
+		{
+			pc<<CHECKBIT(hraci_pole,i);
+		}
+}
+
 uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
 {
+	uint8_t x=10;
+	pc<<x;
 	uint8_t temp_pozice = 0;
 	for (i=0; i!=4; i++)
 	{
@@ -316,10 +440,9 @@ uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda ho
 		pc<<promena_DOMECEK<<endl<<endl;
 	}
 	
-	for (i=0; i!=32; i++)
-	{
-		pc<<CHECKBIT(hraci_pole,i);
-	}
+	posun();
+	
+
 	pc<endl;	
 	//______________________-=kontrola=-_______________
 	uint64_t hraci_pole_kontrola = 0;
@@ -345,37 +468,19 @@ uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda ho
 	return cislo_policka_chyba;	
 }	
 
-void pohyb_na_bod2(float Xt, float Yt, float Zt, float alfa)
+void pohyb_na_bod2(float Xt, float Yt, float Zt)
 {
-	uint16_t pozice_motor0;
-	uint16_t pozice_motor1;
-	uint16_t pozice_motor2;
-	uint16_t pozice_motor3;
-	uint16_t pozice_motor4;
-	uint16_t B_term;
-	int a0_term;
-	int a1_term;
-	int a2_term;
-	int a3_term;
-	int a4_term;
-	int a5_term;
-	int a6_term;
-	int a7_term;
-	uint16_t B;
-	uint16_t B2;
-	double a0;
-	double a1;	
-	double a2;
-	double a3;	//uhel ramena
+	uint16_t pozice_motor0, pozice_motor1,pozice_motor2,pozice_motor3,pozice_motor4,B_term;
+	int a0_term,a1_term, a2_term,a3_term,a4_term,a5_term,a6_term,a7_term;
+	uint16_t B,B2;
+	double a0,a1,a2,a3;	//uhel ramena
 	double a4;	//uhel loktu
-	double a5;	
-	double a6;
-	double a7;	//uhel zapesti
+	double a5,a6,a7;	//uhel zapesti
 	
-	alfa=(alfa*(M_PI/180));
+	//alfa=(alfa*(M_PI/180));
 	B2=sqrt(pow(Xt,2)+pow(Yt,2));																	//prepocitani do 2d
-	Zt=Zt+(sin(alfa)*delka_ramena4);																//pricteni naklonu
-	B2=B2+(cos(alfa)*delka_ramena4);
+	//Zt=Zt+(sin(alfa)*delka_ramena4);																//pricteni naklonu
+	//B2=B2+(cos(alfa)*delka_ramena4);
 	B=sqrt(pow(B2,2)+pow(Zt,2));																	//delka spojnice
 	a0=atan2(Yt,Xt);																				//uhel spojnice
 	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+pow((B/2),2))/(2*delka_ramena1*(B/2)));
@@ -486,18 +591,9 @@ void pohyb_na_bod2(float Xt, float Yt, float Zt, float alfa)
 
 void pohyb_na_bod(float Xt, float Zt)
 {
-	uint16_t pozice_motor1;
-	uint16_t pozice_motor2;
-	uint16_t B_term;
-	int alfa_term;
-	int beta_term;
-	int gamma_term;
-	int delta_term;
-	int B;
-	double alfa;
-	double beta;
-	double gamma;
-	double delta;
+	uint16_t pozice_motor1,pozice_motor2,B_term;
+	int alfa_term,beta_term,gamma_term,delta_term,B;
+	double alfa,beta,gamma,delta;
 	
 	B=sqrt(pow(Xt,2)+pow(Zt,2));		
 	alfa=atan2(Zt,Xt);	
