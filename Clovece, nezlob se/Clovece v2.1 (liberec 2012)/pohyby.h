@@ -21,6 +21,7 @@
 #define delka_ramena4			50
 #define M_PI_6					0.5235987755983
 	
+uint8_t kostka_hod;	
 uint8_t i=0;		//promnìná do smyèek
 uint8_t i2=0;		//-------||----------
 uint32_t hraci_pole=0;			//cudliky na poli
@@ -44,18 +45,18 @@ const bool ledky[3][6]
 
 const uint16_t Motor_1[41] PROGMEM =
 {
-//0		1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16		17		18		19		20		21		22		23		24		25		26		27		28		29		30		31		32		chl_R1	chl_R2	dom_R1	domR2	chl_HR1	chl_HR2
-512,	168,	126,	88,		50,		14,		587,	554,	510,	468,	428,	1014,	972,	935,	892,	858,	819,	780,	743,	700,	659,	626,	589,	548,	510,	470,	434,	392,	352,	316,	283,	239,	202,	176,	220,	196,	199,	711,	711,	833,	791
+//0		1		2		3		4		5		6.587	7.554	8.510	9.468	10		11		12		13		14		15		16		17		18		19		20		21		22		23		24		25		26		27		28		29		30		31		32		chl_R1	chl_R2	dom_R1	domR2	chl_HR1	chl_HR2
+512,	168,	126,	88,		50,		14,		1099,	1066,	1022,	468,	428,	1014,	972,	935,	892,	858,	819,	780,	743,	700,	659,	626,	589,	548,	510,	470,	434,	392,	352,	316,	283,	239,	202,	176,	220,	196,	199,	811,	811,	833,	791
 };
 
 const uint16_t PohybyOstaniMotory[4][18] PROGMEM =
 {
-//Klasicke pozice		Nezasahnute pozice		Chlivek					Domecek_dal			Domecek 2_R				Presun
+//Klasicke pozice		Nezasahnute pozice		Chlivek					Domecek_dal				Domecek 2_R				Presun
 //NadF	ZacNakl	PolF	NadF	ZacNakl	NadF	NadCH	PolF	...		NadCH	PolF	NadF	NadCH	ZacN	NadF
-{351,	334,	250,	769,	758,	800,	340,	260,	235,	500,	512,	540,	605,	592,	415,	516,	739,	726},
-{812,	808,	811,	167,	201,	201,	723,	765,	766,	548,	462,	403,	39, 	302,	447,	520,	167,	166},
-{201,	270,	275,	764,	760,	760,	330,	360,	365,	328,	279,	229,	977,	411,	477,	505,	866,	749},
-{182,	182,	187,	817,	780,	779,	203,	204,	210,	164,	214,	294,	688,	214,	170,	200,	166,	860}
+{351,	334,	250,	769,	758,	800,	340,	260,	235,	450,	510,	562,	450,	528,	564,	516,	739,	726},
+{812,	808,	811,	167,	201,	201,	723,	765,	766,	474,	544,	446,	474, 	441,	369,	520,	167,	166},
+{201,	270,	275,	764,	760,	760,	330,	360,	365,	392,	256,	150,	392,	327,	291,	505,	866,	749},
+{182,	182,	187,	817,	780,	779,	203,	204,	210,	164,	161,	311,	164,	169,	251,	200,	166,	860}
 };
 
 const uint16_t hodnoty_rychlost[7] PROGMEM=
@@ -71,7 +72,7 @@ rychlost_motoru		//7
 
 uint8_t curr_pos[4]
 {
- 33,34,39,40		
+ 33,34,40,39		
 };
 
 void inicializace()
@@ -191,19 +192,64 @@ void zavri()							//zavrit celisti
 
 void naberpoloz(uint8_t c_pozice, bool naber)
 {
-	PoziceM1(c_pozice);
-	if (c_pozice<11 && c_pozice>6)
+	uint8_t tmp;
+	if (naber)
+	{
+		tmp=c_pozice+kostka_hod;
+	} 
+	else
+	{
+		tmp=c_pozice;
+	}
+	
+	if (tmp>=3 && tmp<=16)
 	{
 		if (motor[2].position()<512)
 		{
-			/*for(i2=15;i2!=18;i2++)
+			PoziceM1(c_pozice+16);	
+			nastav_rychlost(3);
+			for (i=5; i!=4; i--)
 			{
-				for(i=2;i!=6;i++)
-				{
-					motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
-				}
+				motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][3])));
 				cekej();
-			}*/
+			}
+			motor[2].position(pgm_read_word(&(PohybyOstaniMotory[0][3])));
+			motor[3].position(pgm_read_word(&(PohybyOstaniMotory[1][3])));
+			motor[4].position(pgm_read_word(&(PohybyOstaniMotory[2][3])));
+			cekej();
+		}
+		else
+		{
+			PoziceM1(c_pozice+16);	
+		}
+		for (i2=3; i2!=6; i2++)
+		{
+			nastav_rychlost(i2-2);
+			for (i=2; i!=6; i++)
+			{
+				motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
+			}
+			cekej();
+		}
+		cekej();
+		otevri();
+		if (naber)
+		{
+			cekej();
+			zavri();
+		}
+		for (i=2; i!=6; i++)
+		{
+			motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][3])));
+		}
+		cekej();
+	}
+	
+	/*if (c_pozice<11 && c_pozice>5)
+	{
+		PoziceM1(c_pozice);
+		if (motor[2].position()<512)
+		{
 			nastav_rychlost(3);
 				for (i=5; i!=4; i--)
 				{
@@ -240,10 +286,11 @@ void naberpoloz(uint8_t c_pozice, bool naber)
 			motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][3])));
 		}
 		cekej();		
-	} 
+	} */
 	
 	else if ((c_pozice>=33 && c_pozice<=34)||(c_pozice>=39 && c_pozice<=40))
 	{
+		PoziceM1(c_pozice);
 		pc<<"domecek"<<endl;
 		for (i2=6; i2!=9; i2++)
 		{
@@ -271,6 +318,7 @@ void naberpoloz(uint8_t c_pozice, bool naber)
 	
 	else if(c_pozice==35 || c_pozice==38)
 	{
+		PoziceM1(c_pozice);
 		for (i2=9; i2!=12; i2++)
 		{
 			nastav_rychlost(i2-2);
@@ -281,13 +329,42 @@ void naberpoloz(uint8_t c_pozice, bool naber)
 			cekej();
 		}
 		cekej();
+		
 		otevri();	
 		cekej();
+		for (i=2; i!=6; i++)
+		{
+			motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][10])));
+		}		
+		//_________________________________________________________________________________________
+	}
+	
+	else if(c_pozice==36 || c_pozice==37)
+	{
+		PoziceM1(c_pozice);
+		for (i2=12; i2!=15; i2++)
+		{
+			nastav_rychlost(i2-2);
+			for (i=2; i!=6; i++)
+			{
+				motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][i2])));
+			}
+			cekej();
+		}
+		cekej();
+		cekej();
+		otevri();
+		cekej();
+		for (i=2; i!=6; i++)
+		{
+			motor[i].position(pgm_read_word(&(PohybyOstaniMotory[(i-2)][13])));
+		}
 		//_________________________________________________________________________________________
 	}
 	
 	else
-	{		
+	{
+		PoziceM1(c_pozice);		
 		if (motor[2].position()>512)
 		{
 			for(i2=17;i2!=14;i2--)
@@ -412,8 +489,7 @@ void posun()
 
 uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
 {
-	uint8_t x=10;
-	pc<<x;
+	pc.sendChar(127);
 	uint8_t temp_pozice = 0;
 	for (i=0; i!=4; i++)
 	{

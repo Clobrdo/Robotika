@@ -25,7 +25,7 @@ void run()
 	while(!buttons.isStart())
 	{}
 	nastav_torque();
-	uint8_t kostka_hod;
+	//uint8_t kostka_hod;
 			pc<<"jedu"<<endl;
 	inicializace();
 			pc<<"kostka nastavena"<<endl;
@@ -37,6 +37,23 @@ void run()
 			pc<<"cekej ..."<<endl;
 	//pc<<aktualizuj_hraci_pole()<<endl;
 			pc<<"aktualizuj pole"<<endl;
+	/*		naber(33);
+			poloz(36);
+			naber(34);
+			poloz(35);*/
+/*	while(1)
+	{
+		while(!buttons.isLeft()){}
+		while(buttons.isLeft()){}
+	
+		pc.sendChar(127);
+	
+		for (int i =0; i!=5;++i)
+		{
+			uint8_t x=pc.get();
+			pc<<x<<endl;
+		}
+	}*/
 	/*while(1)
 	{
 		if(buttons.isStart())
@@ -81,10 +98,9 @@ void run()
 	while(true)
 	{	
 		//test_pozice();
-		//while(!buttons.isStart()){}
-		//while(buttons.isStart()){}
-		//aktualizuj_hraci_pole();
-		//aktualizuj_hraci_pole();
+		while(!buttons.isStart()){}
+		while(buttons.isStart()){}
+		aktualizuj_hraci_pole();
 		pc<<"start"<<endl;
 		kostka_hod = kostka;
 		led.manage(ledky[0][kostka_hod-1]);
@@ -117,7 +133,7 @@ void run()
 		}
 		if(curr_pos[curr_fig]<=32)
 		{
-			/*if(CHECKPOLICKO(curr_pos[curr_fig]+kostka_hod))
+			if(CHECKPOLICKO(curr_pos[curr_fig]+kostka_hod))
 			{
 				for(int i=0;i!=5;i++)
 				{
@@ -134,7 +150,7 @@ void run()
 					
 				}
 				vyhod(curr_pos[curr_fig]+kostka_hod,curr_fig);
-			}*/
+			}
 			naber(curr_pos[curr_fig]);
 			curr_pos[curr_fig]+=kostka_hod;
 			if(curr_fig<=1)
@@ -162,8 +178,8 @@ void run()
 		{
 			if(kostka_hod==6)
 			{
-				/*if(CHECKPOLICKO(1))
-				vyhod(1,curr_fig);*/
+				if(CHECKPOLICKO(1))
+				vyhod(1,curr_fig);
 				naber(curr_pos[curr_fig]);
 				curr_pos[curr_fig]=1;
 				poloz(curr_pos[curr_fig]);
@@ -173,8 +189,8 @@ void run()
 		{
 			if(kostka_hod==6)
 			{
-				/*if(CHECKPOLICKO(16))
-				vyhod(16,curr_fig);*/
+				if(CHECKPOLICKO(16))
+				vyhod(16,curr_fig);
 				naber(curr_pos[curr_fig]);
 				curr_pos[curr_fig]=17;
 				poloz(curr_pos[curr_fig]);
