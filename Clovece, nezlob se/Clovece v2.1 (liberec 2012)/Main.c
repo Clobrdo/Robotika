@@ -19,41 +19,40 @@
 
 void run()
 {
-	int curr_fig;
-	bool hra=true;	//true-cerveny, false-modry
+	pc<<"Zacinam program ..."<<endl;
+	uint8_t curr_fig,naber_temp;
+	bool hra=true, blue_dom=false;	//true-cerveny, false-modry
 	povol();
+	pc<<"Pripojte robota a stisknete Start ..."<<endl;
 	while(!buttons.isStart())
 	{}
-	nastav_torque();
-	//uint8_t kostka_hod;
-			pc<<"jedu"<<endl;
+	nastav_torque();	
 	inicializace();
-			pc<<"kostka nastavena"<<endl;
-	nastav_rychlost(1);	
-			pc<<"rychlost nastavena"<<endl;
+	pc<<"Inicializace ..."<<endl;
+	nastav_rychlost(1);
+	pc<<"Nastavuji rychlost ..."<<endl;
 	zakladni_pozice();
-			pc<<"zakladni pozice"<<endl;
+	pc<<"Zakladni pozice ..."<<endl;
 	cekej();
-			pc<<"cekej ..."<<endl;
-	//pc<<aktualizuj_hraci_pole()<<endl;
-			pc<<"aktualizuj pole"<<endl;
-	/*		naber(33);
-			poloz(36);
-			naber(34);
-			poloz(35);*/
-/*	while(1)
+/*
+pc<<"   _____  _                                                      _         _                 "<<endl;
+pc<<"  / ____|| |                                                    | |       | |                "<<endl;
+pc<<" | |     | |  ___ __   __  ___   ___  ___      _ __    ___  ____| |  ___  | |__    ___   ___ "<<endl;
+pc<<" | |     | | / _ \\ \ / / / _ \ / __|/ _ \    | '_ \  / _ \|_  /| | / _ \ | '_ \  / __| / _ \""<<endl;
+pc<<" | |____ | || (_) |\ V / |  __/| (__|  __/ _  | | | ||  __/ / / | || (_) || |_) | \__ \|  __/"<<endl;
+pc<<"  \_____||_| \___/  \_/   \___| \___|\___|( ) |_| |_| \___|/___||_| \___/ |_.__/  |___/ \___|"<<endl;
+pc<<"                                          |/                                                 "<<endl;*/
+	
+	/*while(true)
 	{
-		while(!buttons.isLeft()){}
-		while(buttons.isLeft()){}
-	
-		pc.sendChar(127);
-	
-		for (int i =0; i!=5;++i)
+		
+		if(buttons.isDown())
 		{
-			uint8_t x=pc.get();
-			pc<<x<<endl;
+			aktualizuj_hraci_pole();
 		}
-	}*/
+		while(buttons.isDown()){};
+	}	*/
+	//}
 	/*while(1)
 	{
 		if(buttons.isStart())
@@ -98,17 +97,54 @@ void run()
 	while(true)
 	{	
 		//test_pozice();
-		while(!buttons.isStart()){}
-		while(buttons.isStart()){}
+		//while(!buttons.isStart()){}
+		//while(buttons.isStart()){}
 		aktualizuj_hraci_pole();
-		pc<<"start"<<endl;
+		pc<<"--------------------------------------------------------"<<endl<<"Nova hra ..."<<endl;
+		/*if (p_hra)
+		{
+			kostka_hod=6; 
+			p_hra=false;
+		}
+		else
+		{
+			kostka_hod=1;
+		}
+		*/
+		pc<<"hraci pole hodnoty: "<<endl;
+		for(int i=1;i<=40;i++)
+		{
+			pc<<"pozice "<<i<<": "<<pole_fig[i]<<endl;
+		}
 		kostka_hod = kostka;
 		led.manage(ledky[0][kostka_hod-1]);
 		led.program(ledky[1][kostka_hod-1]);
 		led.play(ledky[2][kostka_hod-1]);
-		pc<<"kostka je "<<kostka_hod<<endl;
+		pc<<"Na kostce padla "<<kostka_hod<<endl;
+		
+		if((check_pole(35)&&check_pole(36))||(check_pole(37)&&check_pole(38)))	//nekdo vyhral, nova hra
+		{
+			pc<<"Konec hry ..."<<endl;
+			for(int i=0;i!=4;i++)
+			{
+				naber_temp=curr_pos[i];
+				//naber(curr_pos[i]);
+				{
+					switch(i)
+					{
+						case 0:curr_pos[i]=33;break;
+						case 1:curr_pos[1]=34;break;
+						case 2:curr_pos[i]=40;break;
+						case 3:curr_pos[i]=39;break;
+					}
+				}
+				presun(naber_temp, curr_pos[i]);
+			}
+		}
+		
 		if(hra)
 		{
+			pc<<"Hraje robot - cerveny ... "<<endl;
 			hra=false;
 			if(curr_pos[0]<=33)
 			{
@@ -116,12 +152,17 @@ void run()
 			}
 			else
 			{
+				
 				curr_fig=1;
 			}
 		}
 		else
 		{
 			hra=true;
+			pc<<"Hraje clovek - modry ... "<<endl;
+			/*
+			aktualizuj_hraci_pole();
+			*/
 			if(curr_pos[2]<=32||curr_pos[2]>=39)
 			{
 				curr_fig=2;
@@ -131,10 +172,12 @@ void run()
 				curr_fig=3;
 			}
 		}
+		pc<<"Figurka "<<curr_fig<<" je na pozici "<<curr_pos[curr_fig]<<endl;
 		if(curr_pos[curr_fig]<=32)
 		{
-			if(CHECKPOLICKO(curr_pos[curr_fig]+kostka_hod))
+			if(check_pole(curr_pos[curr_fig]+kostka_hod))
 			{
+				pc<<"Vyhazuju ..."<<endl;
 				for(int i=0;i!=5;i++)
 				{
 					if(curr_pos[i]==curr_pos[curr_fig]+kostka_hod)
@@ -151,7 +194,8 @@ void run()
 				}
 				vyhod(curr_pos[curr_fig]+kostka_hod,curr_fig);
 			}
-			naber(curr_pos[curr_fig]);
+			naber_temp=curr_pos[curr_fig];
+			//naber(curr_pos[curr_fig]);
 			curr_pos[curr_fig]+=kostka_hod;
 			if(curr_fig<=1)
 			{
@@ -169,51 +213,50 @@ void run()
 				if(curr_pos[curr_fig]>32)
 				{
 					curr_pos[curr_fig]-=32;
+					blue_dom=true;
+				}
+				if(curr_pos[curr_fig]>16 && blue_dom)
+				{
+					blue_dom=false;
+					if(!check_pole(37))
+					{
+						curr_pos[curr_fig]=37;
+					}
+					else
+					{
+						curr_pos[curr_fig]=38;
+					}
 				}
 			}
-			poloz(curr_pos[curr_fig]);
+			presun(naber_temp,curr_pos[curr_fig]);
 			
 		}
 		else if(curr_pos[curr_fig]>=33&&curr_pos[curr_fig]<=34)
 		{
 			if(kostka_hod==6)
 			{
-				if(CHECKPOLICKO(1))
+				if(check_pole(1))
 				vyhod(1,curr_fig);
-				naber(curr_pos[curr_fig]);
+				naber_temp=curr_pos[curr_fig];
+				//naber(curr_pos[curr_fig]);
 				curr_pos[curr_fig]=1;
-				poloz(curr_pos[curr_fig]);
+				presun(naber_temp, curr_pos[curr_fig]);
 			}
 		}
 		else if(curr_pos[curr_fig]>=39&&curr_pos[curr_fig<=40])
 		{
 			if(kostka_hod==6)
 			{
-				if(CHECKPOLICKO(16))
+				if(check_pole(16))
 				vyhod(16,curr_fig);
-				naber(curr_pos[curr_fig]);
+				naber_temp=curr_pos[curr_fig];
+				//naber(curr_pos[curr_fig]);
 				curr_pos[curr_fig]=17;
-				poloz(curr_pos[curr_fig]);
+				presun(naber_temp, curr_pos[curr_fig]);
 			}
 		}
-		if((DOMECEK(2)&&DOMECEK(3))||(DOMECEK(4)&&DOMECEK(5)))	//nekdo vyhral, nova hra
-		{
-			for(int i=0;i!=4;i++)
-			{
-				naber(curr_pos[i]);
-				{
-					switch(i)
-					{
-						case 0:curr_pos[i]=33;break;
-						case 1:curr_pos[1]=34;break;
-						case 2:curr_pos[i]=39;break;
-						case 3:curr_pos[i]=40;break;
-					}
-				}
-				poloz(curr_pos[i]);	
-			}
-		}
-		//není hotovo - modré figurky do domeèkù
+		pc<<"Figurka "<<curr_fig<<" se posunula na pozici "<<curr_pos[curr_fig]<<endl;
+		
 	/*	if(!(DOMECEK(0)&&DOMECEK(1)))	//neco je v poli
 		{
 			pc<<"neco je v poli"<<endl;
