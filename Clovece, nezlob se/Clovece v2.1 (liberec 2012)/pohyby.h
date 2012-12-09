@@ -10,12 +10,12 @@
 #define	rychlost_motoru			250
 #define pocet_motoru			7
 #define kostka					((TCNT0 % 6)+1)
-#define SETBIT(ADDRESS,BIT)		(ADDRESS |= (1<<BIT)) 
+//#define SETBIT(ADDRESS,BIT)		(ADDRESS |= (1<<BIT)) 
 //#define CHECKBIT(ADDRESS,BIT) (ADDRESS & (1<<BIT))
-#define CHECKBIT(ADDRESS,BIT)	((ADDRESS & (1<<BIT))!=0) 
-#define CLEARBIT(ADDRESS,BIT)	(ADDRESS &= ~(1<<BIT)) 
+//#define CHECKBIT(ADDRESS,BIT)	((ADDRESS & (1<<BIT))!=0) 
+//#define CLEARBIT(ADDRESS,BIT)	(ADDRESS &= ~(1<<BIT)) 
 //#define CHECKPOLICKO(BIT)		CHECKBIT(hraci_pole,BIT-1)
-#define DOMECEK(BIT)			CHECKBIT(promena_DOMECEK,BIT-1)
+//#define DOMECEK(BIT)			CHECKBIT(promena_DOMECEK,BIT-1)
 #define DelayPriPolozeni		400
 #define delka_ramena1			66
 #define delka_ramena2			94
@@ -27,8 +27,8 @@ bool p_hra=true;
 uint8_t kostka_hod;	
 uint8_t i=0;		//promnìná do smyèek
 uint8_t i2=0;		//-------||----------
-uint32_t hraci_pole=0;			//cudliky na poli
-uint8_t promena_DOMECEK=0;		//cudliky v domecku
+//uint32_t hraci_pole=0;			//cudliky na poli
+//uint8_t promena_DOMECEK=0;		//cudliky v domecku
 
 const uint16_t VychoziPozice[7] PROGMEM =
 {
@@ -47,6 +47,7 @@ const bool ledky[3][6]
 };
 
 bool pole_fig[41]{};
+bool pole_fig_old[41]{};
 
 const uint16_t Motor_1[41] PROGMEM =
 {
@@ -75,19 +76,6 @@ rychlost_motoru,	//6
 rychlost_motoru		//7
 };
 
-bool check_pole(uint8_t cislo)
-{
-	if (cislo<4)
-	{
-		cislo+=29;
-	}
-	else
-	{
-		cislo-=3;
-	}
-	return (pole_fig[cislo]);
-}
-
 uint8_t curr_pos[4]
 {
  33,34,40,39		
@@ -96,6 +84,32 @@ uint8_t curr_pos[4]
 void inicializace()
 {
 	TCCR0 |= (1 << CS00);
+}
+
+bool check_pole(uint8_t cislo)
+{
+	if (cislo<4)
+	{
+		cislo+=29;
+	}
+	else if(cislo>=4 && cislo<=32)
+	{
+		cislo-=3;
+	}
+	return (pole_fig[cislo]);
+}
+
+bool check_pole_old(uint8_t cislo)
+{
+	if (cislo<4)
+	{
+		cislo+=29;
+	}
+	else if(cislo>=4 && cislo<=32)
+	{
+		cislo-=3;
+	}
+	return (pole_fig_old[cislo]);
 }
 
 void povol()
@@ -440,16 +454,7 @@ void naberpoloz(uint8_t c_pozice, bool naber, uint8_t c_cilove_pozice)
 	}
 	nastav_rychlost(1);
 }	
-/*
-void naber(uint8_t c_pozice, uint8_t c_cilove_pozice)				//nabere figurku na pozici
-{
-	naberpoloz(c_pozice, true, uint8_t c_cilove_pozice);
-}
 
-void poloz(uint8_t c_pozice, uint8_t c_cilove_pozice)				//polozi figurku na pozici
-{
-	naberpoloz(c_pozice, false, uint8_t c_cilove_pozice);
-}*/
 void presun(uint8_t zdroj, uint8_t cil)
 {
 	naberpoloz(zdroj, true, cil);
@@ -490,7 +495,7 @@ bool check_hraci_pole()
 	}
 	return vysledek;
 }
-
+/*
 void zapis_domecek(uint8_t BIT,bool VAL)
 {
 	if (VAL)
@@ -499,12 +504,12 @@ void zapis_domecek(uint8_t BIT,bool VAL)
 	}
 	else CLEARBIT(promena_DOMECEK, BIT);
 }
-
+*/
 
 uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda hodnoty v curr_pos[] odpovídají skuteènosti
 {
+	uint8_t chyba_policko = 0, temp_pozice = 0;
 	pc.sendChar(127);
-	uint8_t temp_pozice = 0;
 	for (i=0; i!=5; i++)
 	{
 		temp_pozice = pc.get();
@@ -514,11 +519,18 @@ uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda ho
 			temp_pozice/=2;
 		}
 	}
-	
+	for(i=0;i<=3;i++)
+	{
+		if(!check_pole(curr_pos[i]))
+		{
+			chyba_policko=curr_pos[i];
+		}
+	}
+	return chyba_policko;
 	//______________________-=kontrola=-_______________
-	uint64_t hraci_pole_kontrola = 0;
+	/*uint64_t hraci_pole_kontrola = 0;
 	uint64_t curr_pos_kontrola = 0;
-	uint8_t cislo_policka_chyba = 0;
+	
 		
 	hraci_pole_kontrola = (hraci_pole+(promena_DOMECEK*4294967296));	
 	for (i=0; i!=4; i++)
@@ -536,159 +548,9 @@ uint8_t aktualizuj_hraci_pole()	//pøidat další funkci, která zkontroluje, zda ho
 		cislo_policka_chyba=i;
 	}
 	else cislo_policka_chyba = 0;
-	return cislo_policka_chyba;	
+	return cislo_policka_chyba;	*/
 }	
 
-void pohyb_na_bod2(float Xt, float Yt, float Zt)
-{
-	uint16_t pozice_motor0, pozice_motor1,pozice_motor2,pozice_motor3,pozice_motor4,B_term;
-	int a0_term,a1_term, a2_term,a3_term,a4_term,a5_term,a6_term,a7_term;
-	uint16_t B,B2;
-	double a0,a1,a2,a3;	//uhel ramena
-	double a4;	//uhel loktu
-	double a5,a6,a7;	//uhel zapesti
-	
-	//alfa=(alfa*(M_PI/180));
-	B2=sqrt(pow(Xt,2)+pow(Yt,2));																	//prepocitani do 2d
-	//Zt=Zt+(sin(alfa)*delka_ramena4);																//pricteni naklonu
-	//B2=B2+(cos(alfa)*delka_ramena4);
-	B=sqrt(pow(B2,2)+pow(Zt,2));																	//delka spojnice
-	a0=atan2(Yt,Xt);																				//uhel spojnice
-	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+pow((B/2),2))/(2*delka_ramena1*(B/2)));
-	a2=atan2(Zt,Xt);
-	a3=a1+a2;
-	a4=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-pow((B/2),2))/(2*delka_ramena1*delka_ramena1));
-	a5=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow(delka_ramena1,2))/(2*delka_ramena2*delka_ramena2));
-	a6=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow((B/2),2))/(2*delka_ramena2*delka_ramena3));
-	a7=a5+a6;
-	
-	pozice_motor0=(((((5*M_PI)/6)+a0)*180/M_PI)*3.4133333);
-	pozice_motor1=(((((M_PI)/6)+a3)*180/M_PI)*3.4133333);
-	pozice_motor2=((((a4+a5)-(M_PI/6))*180/M_PI)*3.4133333);
-	pozice_motor3=(((a7-(M_PI/6))*180/M_PI)*3.4133333);
-	
-	motor[1].position(pozice_motor0);
-	motor[2].position(pozice_motor1);
-	motor[3].position(pozice_motor2);
-	motor[4].position(pozice_motor3);
-	
-	
-	/*a0_term=a0*180/M_PI;
-	a1_term=a1*180/M_PI;
-	a2_term=a2*180/M_PI;
-	a3_term=a3*180/M_PI;
-	a4_term=a4*180/M_PI;
-	a5_term=a5*180/M_PI;
-	a6_term=a6*180/M_PI;
-	a7_term=a7*180/M_PI;
-	
-	pc<<"B "<<B<<endl;
-	pc<<"A0 "<<a0_term<<endl;
-	pc<<"A1 "<<a1_term<<endl;
-	pc<<"A2 "<<a2_term<<endl;
-	pc<<"A3 "<<a3_term<<endl;
-	pc<<"A4 "<<a4_term<<endl;
-	pc<<"A5 "<<a5_term<<endl;
-	pc<<"A6 "<<a6_term<<endl;
-	pc<<"A7 "<<a7_term<<endl;
-	
-	pc<<"Pozice 1:"<<pozice_motor1<<endl;
-	pc<<"Pozice 2:"<<pozice_motor2<<endl;
-	pc<<"Pozice 3:"<<pozice_motor3<<endl;*/
-}	
-
-/*void pohyb_na_bod2(float Xt, float Zt)
-{
-	uint16_t pozice_motor1;
-	uint16_t pozice_motor2;
-	uint16_t pozice_motor3;
-	uint16_t B_term;
-	int a1_term;
-	int a2_term;
-	int a3_term;
-	int a4_term;
-	int a5_term;
-	int a6_term;
-	int a7_term;
-	uint16_t B;
-	uint16_t B_22;
-	double a1;	
-	double a2;
-	double a3;	//uhel ramena
-	double a4;	//uhel loktu
-	double a5;	
-	double a6;
-	double a7;	//uhel zapesti
-	
-	B=sqrt(pow(Xt,2)+pow(Zt,2));
-	B_22=pow((B/2),2);	
-	a1=acos((pow(delka_ramena1,1)-pow(delka_ramena1,2)+B_22)/(2*delka_ramena1*(B/2)));
-	a2=atan2(Zt,Xt);
-	a3=a1+a2;
-	a4=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-B_22)/(2*delka_ramena1*delka_ramena1));
-	a5=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-pow(delka_ramena1,2))/(2*delka_ramena2*delka_ramena2));
-	a6=acos((pow(delka_ramena2,2)+pow(delka_ramena2,2)-B_22)/(2*delka_ramena2*delka_ramena3));
-	a7=a5+a6;
-	
-	pozice_motor1=((((M_PI/6)+a3)*180/M_PI)*3.4133333);
-	pozice_motor2=((((a4+a5)-(M_PI/6))*180/M_PI)*3.4133333);
-	pozice_motor3=(((a7-(M_PI/6))*180/M_PI)*3.4133333);
-	
-	motor[2].position(pozice_motor1);
-	motor[3].position(pozice_motor2);
-	motor[4].position(pozice_motor3);
-	
-	a1_term=a1*180/M_PI;
-	a2_term=a2*180/M_PI;
-	a3_term=a3*180/M_PI;
-	a4_term=a4*180/M_PI;
-	a5_term=a5*180/M_PI;
-	a6_term=a6*180/M_PI;
-	a7_term=a7*180/M_PI;
-	
-	pc<<"B "<<B<<endl;
-	pc<<"A1 "<<a1_term<<endl;
-	pc<<"A2 "<<a2_term<<endl;
-	pc<<"A3 "<<a3_term<<endl;
-	pc<<"A4 "<<a4_term<<endl;
-	pc<<"A5 "<<a5_term<<endl;
-	pc<<"A6 "<<a6_term<<endl;
-	pc<<"A7 "<<a7_term<<endl;
-	
-	pc<<"Pozice 1:"<<pozice_motor1<<endl;
-	pc<<"Pozice 2:"<<pozice_motor2<<endl;
-	pc<<"Pozice 3:"<<pozice_motor3<<endl;
-}*/
-
-void pohyb_na_bod(float Xt, float Zt)
-{
-	uint16_t pozice_motor1,pozice_motor2,B_term;
-	int alfa_term,beta_term,gamma_term,delta_term,B;
-	double alfa,beta,gamma,delta;
-	
-	B=sqrt(pow(Xt,2)+pow(Zt,2));		
-	alfa=atan2(Zt,Xt);	
-	beta=acos((pow(delka_ramena1,2)-pow(delka_ramena2,2)+pow(B,2))/(2*delka_ramena2*B));	
-	gamma=alfa+beta;
-	delta=acos((pow(delka_ramena1,2)+pow(delka_ramena2,2)-pow(B,2))/(2*delka_ramena1*delka_ramena2));
-	pozice_motor1=((((M_PI/3)+gamma)*180/M_PI)*3.4133333);
-	pozice_motor2=(((((M_PI/3)+delta-(M_PI_2))*180/M_PI))*3.4133333);	
-	motor[2].position(pozice_motor1);
-	motor[3].position(pozice_motor2);
-	
-	//B_term=B*1000;	
-	alfa_term=alfa*180/M_PI;
-	beta_term=beta*180/M_PI;
-	gamma_term=gamma*180/M_PI;
-	delta_term=delta*180/M_PI;
-	pc<<B<<endl;
-	pc<<"alfa je:"<<alfa_term<<endl;
-	pc<<"beta je:"<<beta_term<<endl;
-	pc<<"gamma je:"<<gamma_term<<endl;
-	pc<<"delta je:"<<delta_term<<endl;
-	pc<<"pozice motoru1:"<<pozice_motor1<<endl;
-	pc<<"pozice motoru2:"<<pozice_motor2<<endl;
-}
 void test_pozice()
 {
 	uint16_t pozice_moturu[7]

@@ -5,27 +5,35 @@
 #include "pohyby.h"
 #include <avr/delay.h>
 
-/*  Prikazy knihovny:
-
-	zakladni_pozice		()
-	nastav_rychlost		()
-	cekej				()			//ceka dokud se motory hybou
-	naber				()
-	poloz				()
-	vyhod				()
-	check_hraci_pole	()		//true dokud je neco v POLI ne v domeckach
-
-*/
-
 void run()
 {
 	pc<<"Zacinam program ..."<<endl;
-	uint8_t curr_fig,naber_temp;
-	bool hra=true, blue_dom=false;	//true-cerveny, false-modry
+	uint8_t curr_fig,naber_temp, pocet_hracu=1, chyba, zmena=0;
+	bool hra=true, blue_dom=false, nasad=false;	//true-cerveny, false-modry
 	povol();
-	pc<<"Pripojte robota a stisknete Start ..."<<endl;
+	pc<<"Pripojte robota, zvolte pocet hracu a stisknete Start ..."<<endl;
+	
 	while(!buttons.isStart())
-	{}
+	{
+		if(buttons.isUp())
+		{
+			pocet_hracu=1;
+		}		
+		else if(buttons.isLeft())
+		{
+			pocet_hracu=0;
+		}		
+		else if(buttons.isDown())
+		{
+			aktualizuj_hraci_pole();
+			for(int i=1;i<=40;i++)
+			{
+				pc<<"pozice "<<i<<": "<<check_pole(i)<<endl;
+			}
+		}
+		while(buttons.isDown()){};
+	}
+	pc<<"Pocet hracu: "<<pocet_hracu<<endl;
 	nastav_torque();	
 	inicializace();
 	pc<<"Inicializace ..."<<endl;
@@ -34,6 +42,9 @@ void run()
 	zakladni_pozice();
 	pc<<"Zakladni pozice ..."<<endl;
 	cekej();
+	
+	aktualizuj_hraci_pole();
+	pc<<"Aktualizuji hraci pole ..."<<endl;
 /*
 pc<<"   _____  _                                                      _         _                 "<<endl;
 pc<<"  / ____|| |                                                    | |       | |                "<<endl;
@@ -42,64 +53,29 @@ pc<<" | |     | | / _ \\ \ / / / _ \ / __|/ _ \    | '_ \  / _ \|_  /| | / _ \ |
 pc<<" | |____ | || (_) |\ V / |  __/| (__|  __/ _  | | | ||  __/ / / | || (_) || |_) | \__ \|  __/"<<endl;
 pc<<"  \_____||_| \___/  \_/   \___| \___|\___|( ) |_| |_| \___|/___||_| \___/ |_.__/  |___/ \___|"<<endl;
 pc<<"                                          |/                                                 "<<endl;*/
-	
-	/*while(true)
+	/*
+	while(true)
 	{
 		
-		if(buttons.isDown())
-		{
-			aktualizuj_hraci_pole();
-		}
-		while(buttons.isDown()){};
-	}	*/
-	//}
-	/*while(1)
-	{
-		if(buttons.isStart())
-		{
-			while(buttons.isStart())
-			{
-			}
-				for(i=0; i!=pocet_motoru; i++)
-				{
-					motor[i+1].speed(1023);
-				}
-			
-			//pohyb_na_bod2(100,100,100);
-			
-			for (;;)
-			{
-				//pohyb_na_bod2(50,50,50);
-				for (int a=0;a!=360;a++)
-				{
-					pohyb_na_bod2(150,0,120,a);
-					//pc<<a<<endl;
-					_delay_ms(10);
-				}
-				for (int a=360;a!=0;a--)
-				{
-					pohyb_na_bod2(150,0,120,a);
-					//pc<<a<<endl;
-					_delay_ms(10);
-				}
-			
-			}
-			
-			test_pozice();
-			kostka_hod = kostka;
-			pc<<kostka_hod;
-			naber(curr_pos[0]);
-			curr_pos[0]+=kostka_hod;
-			poloz(curr_pos[0]);
-		}
-	}		
+		
+	}	
+	
 	*/
 	while(true)
 	{	
+		for(int i=0;i<=3;i++)
+		{
+			pc<<"pozice figurky "<<i<<" je "<<curr_pos[i]<<endl;
+		}
 		//test_pozice();
-		//while(!buttons.isStart()){}
-		//while(buttons.isStart()){}
-		aktualizuj_hraci_pole();
+		chyba=aktualizuj_hraci_pole();
+		if(chyba)
+		{
+			pc<<"Nastala chyba na policku "<<chyba<<endl;
+			_delay_ms(1000);
+			chyba=aktualizuj_hraci_pole();	
+		}
+		//pc<<"Figurky jsou v poradku"<<endl;
 		pc<<"--------------------------------------------------------"<<endl<<"Nova hra ..."<<endl;
 		/*if (p_hra)
 		{
@@ -111,11 +87,11 @@ pc<<"                                          |/                               
 			kostka_hod=1;
 		}
 		*/
-		pc<<"hraci pole hodnoty: "<<endl;
+	/*	pc<<"hraci pole hodnoty: "<<endl;
 		for(int i=1;i<=40;i++)
 		{
-			pc<<"pozice "<<i<<": "<<pole_fig[i]<<endl;
-		}
+			pc<<"pozice "<<i<<": "<<check_pole(i)<<endl;
+		}*/
 		kostka_hod = kostka;
 		led.manage(ledky[0][kostka_hod-1]);
 		led.program(ledky[1][kostka_hod-1]);
@@ -141,7 +117,6 @@ pc<<"                                          |/                               
 				presun(naber_temp, curr_pos[i]);
 			}
 		}
-		
 		if(hra)
 		{
 			pc<<"Hraje robot - cerveny ... "<<endl;
@@ -152,24 +127,102 @@ pc<<"                                          |/                               
 			}
 			else
 			{
-				
 				curr_fig=1;
 			}
 		}
 		else
 		{
 			hra=true;
-			pc<<"Hraje clovek - modry ... "<<endl;
-			/*
-			aktualizuj_hraci_pole();
-			*/
-			if(curr_pos[2]<=32||curr_pos[2]>=39)
+			if(pocet_hracu==0)
 			{
-				curr_fig=2;
+				pc<<"Hraje robot - modry ... "<<endl;
+				if(curr_pos[2]<=32||curr_pos[2]>=39)
+				{
+					curr_fig=2;
+				}
+				else
+				{
+					curr_fig=3;
+				}
 			}
 			else
 			{
-				curr_fig=3;
+				for(int i=0;i<=40;i++)
+				{
+					pole_fig_old[i]=pole_fig[i];
+					//pc<<"pole old "<<i<<" je "<<pole_fig_old[i]<<endl;
+				}
+				pc<<"Hraje clovek - modry ..."<<endl;
+				
+				while(!buttons.isStart()){}
+				while(buttons.isStart()){}
+				zmena=0;
+				aktualizuj_hraci_pole();
+				for(int i=0;i<=40;i++)
+				{
+					
+					//pc<<"pole aktual "<<i<<" je "<<pole_fig[i]<<endl;
+					if(pole_fig_old[i]!=pole_fig[i])
+					{
+						if(i<14||(i>14&&i<33))
+						{
+							if(zmena!=0)
+							{
+								if(i-zmena==kostka_hod)
+								{
+									pc<<"Spravny tah "<<endl;
+									if(curr_pos[2]==zmena+3)
+									{
+										curr_pos[2]+=kostka_hod;
+									}									
+									else if(curr_pos[3]==zmena+3)
+									{
+										curr_pos[3]+=kostka_hod;
+									}
+								}
+								else
+								{
+									pc<<"Spatny tah "<<endl;
+								}
+							}
+							else
+							{
+								zmena=i;
+							}
+							
+							pc<<"hrac se posunul"<<endl;
+						}
+						else if(i==14)
+						{
+							zmena=i;
+							pc<<"hrac mozna nasadil "<<endl;
+							if(kostka_hod==6)
+							{
+								nasad=true;
+							}
+						}						
+				
+						else if(i==39)
+						{
+							pc<<"hrac nasadil"<<endl;
+							if(nasad)
+							{
+								curr_pos[3]=17;
+							}
+						}
+						else if(i==40)
+						{
+							pc<<"hrac nasadil"<<endl;
+							if(nasad)
+							{
+								curr_pos[2]=17;
+							}
+						}
+						pc<<"nastala zmena na pozici "<<i<<endl;
+					}
+					
+				}
+				continue;
 			}
 		}
 		pc<<"Figurka "<<curr_fig<<" je na pozici "<<curr_pos[curr_fig]<<endl;
@@ -190,7 +243,6 @@ pc<<"                                          |/                               
 							case 3:curr_pos[3]=40;break;
 						}
 					}
-					
 				}
 				vyhod(curr_pos[curr_fig]+kostka_hod,curr_fig);
 			}
@@ -199,11 +251,11 @@ pc<<"                                          |/                               
 			curr_pos[curr_fig]+=kostka_hod;
 			if(curr_fig<=1)
 			{
-				if((curr_pos[curr_fig]>32)&&(!(DOMECEK(3))))
+				if((curr_pos[curr_fig]>32)&&(!(check_pole(35))))
 				{
 					curr_pos[curr_fig]=35;
 				}
-				else if((curr_pos[curr_fig]>32)&&(!(DOMECEK(4))))
+				else if((curr_pos[curr_fig]>32)&&(!(check_pole(36))))
 				{
 					curr_pos[curr_fig]=36;
 				}
@@ -256,59 +308,5 @@ pc<<"                                          |/                               
 			}
 		}
 		pc<<"Figurka "<<curr_fig<<" se posunula na pozici "<<curr_pos[curr_fig]<<endl;
-		
-	/*	if(!(DOMECEK(0)&&DOMECEK(1)))	//neco je v poli
-		{
-			pc<<"neco je v poli"<<endl;
-			if(!DOMECEK(0))
-			{
-				curr_fig=0;
-			}
-			else if(!DOMECEK(1))
-			{
-				curr_fig=1;
-			}
-			if(CHECKPOLICKO(curr_pos[curr_fig]+kostka_hod))	//obsazeno
-			{
-				vyhod(curr_pos[curr_fig]+kostka_hod);
-			}
-			naber(curr_pos[curr_fig]);
-			curr_pos[curr_fig] += kostka_hod;
-			if((curr_pos[curr_fig]>32)&&(!(DOMECEK(3))))
-			{
-				curr_pos[curr_fig]=35;
-			}
-			else if((curr_pos[curr_fig]>32)&&(!(DOMECEK(4))))
-			{
-				curr_pos[curr_fig]=36;
-			}
-			poloz(curr_pos[curr_fig]);						
-		}		
-		else	
-		{
-			pc<<"nic neni v poli"<<endl;
-			if(kostka_hod==6)
-			{
-				pc<<"kostka je 6"<<endl;
-				if(CHECKPOLICKO(1))
-				{
-					pc<<"vyhazuju"<<endl;
-					vyhod(1);
-				}
-				if(DOMECEK(0))
-				{
-					curr_fig=0;
-					naber(33);
-				}
-				else if(DOMECEK(1))
-				{
-					curr_fig=1;
-					naber(34);
-				}
-				curr_pos[curr_fig]=1;
-				poloz(curr_pos[curr_fig]);
-			}
-		}
-		*/
 	}
 }
